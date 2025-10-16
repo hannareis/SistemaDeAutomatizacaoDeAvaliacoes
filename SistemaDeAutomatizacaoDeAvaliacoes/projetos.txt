@@ -1,3 +1,1 @@
 37;haanna;;
-14;OuaprenderOuDesiste;la;eu
-14;erro a corrigir;nao pode ter o mesmo id;tu
