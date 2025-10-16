@@ -9,6 +9,7 @@ const string ARQUIVO = "projetos.txt"; // usa o caminho local do projeto
 
 vector<Projeto> carregarProjetos() {
     vector<Projeto> lista;
+   //
     ifstream file(ARQUIVO);
     string linha;
 
@@ -31,6 +32,8 @@ void salvarProjetos(const vector<Projeto>& lista) {
         file << p.id << ";" << p.nome << ";" << p.descricao << ";" << p.responsavel << "\n";
     }
 }
+
+
 
 void criarProjeto() {
     Projeto p;
