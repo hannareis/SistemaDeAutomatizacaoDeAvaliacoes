@@ -126,6 +126,8 @@
     <ClInclude Include="Projetos.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Avaliador.cpp" />
+    <ClCompile Include="Avaliador.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Notas.cpp" />
     <ClCompile Include="Notas.hpp" />

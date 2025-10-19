@@ -1,0 +1,4 @@
+1;hiago;thiago@fucapi.com.br;Graduacao;Ciencia da Computacao
+2;Hanna Nunes Reis;hannanunes@gmail.com;Graduacao;Engenharia de Software
+3;;O;Tecnico;Automacao Industrial
+4;;3;Graduacao;Engenharia da Computacao

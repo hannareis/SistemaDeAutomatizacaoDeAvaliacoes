@@ -15,5 +15,4 @@ struct Notas {
 void criarNotas();
 void listarNotas();
 
-,
 #endif
