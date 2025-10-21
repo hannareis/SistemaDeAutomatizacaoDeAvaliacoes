@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector>
 #include "../SistemaDeAutomatizacaoDeAvaliacoes/Projetos.hpp"
+#include "../SistemaDeAutomatizacaoDeAvaliacoes/ID.hpp"
 using namespace std;
 
 const string ARQUIVO = "projetos.txt"; // usa o caminho local do projeto
@@ -37,8 +38,8 @@ void salvarProjetos(const vector<Projeto>& lista) {
 
 void criarProjeto() {
     Projeto p;
-    cout << "ID do projeto: ";
-    cin >> p.id; cin.ignore();
+    //cout << "ID do projeto: ";
+     p.id = gerarNovoID();
     cout << "Nome: ";
     getline(cin, p.nome);
     cout << "Descricao: ";
