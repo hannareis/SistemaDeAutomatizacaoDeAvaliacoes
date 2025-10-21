@@ -6,13 +6,19 @@ using namespace std;
 
 struct Organizador {
     int id;
-    string nome_organizador;
-    string area_organizador;
+    string nome;
+    string area;
 };
 
-void cadastrarOrganizador();
-void editarOrganizador();
-void excluirOrganizador();
-void buscarOrganizador();
+// Funções CRUD
+void criarOrganizador();
+void listarOrganizadores();
+void atualizarOrganizador();
+void deletarOrganizador();
+
+// Funções de busca
+void buscarPorID();
+void buscarPorNome();
+void buscarPorArea();
 
 #endif
