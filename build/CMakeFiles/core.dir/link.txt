@@ -1,0 +1,2 @@
+/usr/bin/ar qc libcore.a CMakeFiles/core.dir/core/Calculos.cpp.o CMakeFiles/core.dir/core/Persistencia.cpp.o CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o CMakeFiles/core.dir/core/MaxHeap.cpp.o CMakeFiles/core.dir/core/Paths.cpp.o CMakeFiles/core.dir/core/CoreAPI.cpp.o
+/usr/bin/ranlib libcore.a

@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/avalia_console.dir/main_console.cpp.o -o avalia_console  libcore.a

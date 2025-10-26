@@ -1,0 +1,4 @@
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/edit_cache.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/rebuild_cache.dir
