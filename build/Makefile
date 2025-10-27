@@ -142,6 +142,145 @@ avalia_console/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console.dir/build.make CMakeFiles/avalia_console.dir/build
 .PHONY : avalia_console/fast
 
+#=============================================================================
+# Target rules for targets named avalia_gui
+
+# Build rule for target.
+avalia_gui: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 avalia_gui
+.PHONY : avalia_gui
+
+# fast build rule for target.
+avalia_gui/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/build
+.PHONY : avalia_gui/fast
+
+#=============================================================================
+# Target rules for targets named core_autogen_timestamp_deps
+
+# Build rule for target.
+core_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 core_autogen_timestamp_deps
+.PHONY : core_autogen_timestamp_deps
+
+# fast build rule for target.
+core_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_autogen_timestamp_deps.dir/build.make CMakeFiles/core_autogen_timestamp_deps.dir/build
+.PHONY : core_autogen_timestamp_deps/fast
+
+#=============================================================================
+# Target rules for targets named core_autogen
+
+# Build rule for target.
+core_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 core_autogen
+.PHONY : core_autogen
+
+# fast build rule for target.
+core_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core_autogen.dir/build.make CMakeFiles/core_autogen.dir/build
+.PHONY : core_autogen/fast
+
+#=============================================================================
+# Target rules for targets named avalia_console_autogen_timestamp_deps
+
+# Build rule for target.
+avalia_console_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 avalia_console_autogen_timestamp_deps
+.PHONY : avalia_console_autogen_timestamp_deps
+
+# fast build rule for target.
+avalia_console_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console_autogen_timestamp_deps.dir/build.make CMakeFiles/avalia_console_autogen_timestamp_deps.dir/build
+.PHONY : avalia_console_autogen_timestamp_deps/fast
+
+#=============================================================================
+# Target rules for targets named avalia_console_autogen
+
+# Build rule for target.
+avalia_console_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 avalia_console_autogen
+.PHONY : avalia_console_autogen
+
+# fast build rule for target.
+avalia_console_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console_autogen.dir/build.make CMakeFiles/avalia_console_autogen.dir/build
+.PHONY : avalia_console_autogen/fast
+
+#=============================================================================
+# Target rules for targets named avalia_gui_autogen_timestamp_deps
+
+# Build rule for target.
+avalia_gui_autogen_timestamp_deps: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 avalia_gui_autogen_timestamp_deps
+.PHONY : avalia_gui_autogen_timestamp_deps
+
+# fast build rule for target.
+avalia_gui_autogen_timestamp_deps/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui_autogen_timestamp_deps.dir/build.make CMakeFiles/avalia_gui_autogen_timestamp_deps.dir/build
+.PHONY : avalia_gui_autogen_timestamp_deps/fast
+
+#=============================================================================
+# Target rules for targets named avalia_gui_autogen
+
+# Build rule for target.
+avalia_gui_autogen: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 avalia_gui_autogen
+.PHONY : avalia_gui_autogen
+
+# fast build rule for target.
+avalia_gui_autogen/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui_autogen.dir/build.make CMakeFiles/avalia_gui_autogen.dir/build
+.PHONY : avalia_gui_autogen/fast
+
+avalia_console_autogen/mocs_compilation.o: avalia_console_autogen/mocs_compilation.cpp.o
+.PHONY : avalia_console_autogen/mocs_compilation.o
+
+# target to build an object file
+avalia_console_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console.dir/build.make CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o
+.PHONY : avalia_console_autogen/mocs_compilation.cpp.o
+
+avalia_console_autogen/mocs_compilation.i: avalia_console_autogen/mocs_compilation.cpp.i
+.PHONY : avalia_console_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+avalia_console_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console.dir/build.make CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.i
+.PHONY : avalia_console_autogen/mocs_compilation.cpp.i
+
+avalia_console_autogen/mocs_compilation.s: avalia_console_autogen/mocs_compilation.cpp.s
+.PHONY : avalia_console_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+avalia_console_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_console.dir/build.make CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.s
+.PHONY : avalia_console_autogen/mocs_compilation.cpp.s
+
+avalia_gui_autogen/mocs_compilation.o: avalia_gui_autogen/mocs_compilation.cpp.o
+.PHONY : avalia_gui_autogen/mocs_compilation.o
+
+# target to build an object file
+avalia_gui_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/avalia_gui_autogen/mocs_compilation.cpp.o
+.PHONY : avalia_gui_autogen/mocs_compilation.cpp.o
+
+avalia_gui_autogen/mocs_compilation.i: avalia_gui_autogen/mocs_compilation.cpp.i
+.PHONY : avalia_gui_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+avalia_gui_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/avalia_gui_autogen/mocs_compilation.cpp.i
+.PHONY : avalia_gui_autogen/mocs_compilation.cpp.i
+
+avalia_gui_autogen/mocs_compilation.s: avalia_gui_autogen/mocs_compilation.cpp.s
+.PHONY : avalia_gui_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+avalia_gui_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/avalia_gui_autogen/mocs_compilation.cpp.s
+.PHONY : avalia_gui_autogen/mocs_compilation.cpp.s
+
 core/AvaliacaoModule.o: core/AvaliacaoModule.cpp.o
 .PHONY : core/AvaliacaoModule.o
 
@@ -286,6 +425,150 @@ core/Persistencia.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/core/Persistencia.cpp.s
 .PHONY : core/Persistencia.cpp.s
 
+core_autogen/mocs_compilation.o: core_autogen/mocs_compilation.cpp.o
+.PHONY : core_autogen/mocs_compilation.o
+
+# target to build an object file
+core_autogen/mocs_compilation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o
+.PHONY : core_autogen/mocs_compilation.cpp.o
+
+core_autogen/mocs_compilation.i: core_autogen/mocs_compilation.cpp.i
+.PHONY : core_autogen/mocs_compilation.i
+
+# target to preprocess a source file
+core_autogen/mocs_compilation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.i
+.PHONY : core_autogen/mocs_compilation.cpp.i
+
+core_autogen/mocs_compilation.s: core_autogen/mocs_compilation.cpp.s
+.PHONY : core_autogen/mocs_compilation.s
+
+# target to generate assembly for a file
+core_autogen/mocs_compilation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/core.dir/build.make CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.s
+.PHONY : core_autogen/mocs_compilation.cpp.s
+
+gui/DetalhesProjetoDialog.o: gui/DetalhesProjetoDialog.cpp.o
+.PHONY : gui/DetalhesProjetoDialog.o
+
+# target to build an object file
+gui/DetalhesProjetoDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/DetalhesProjetoDialog.cpp.o
+.PHONY : gui/DetalhesProjetoDialog.cpp.o
+
+gui/DetalhesProjetoDialog.i: gui/DetalhesProjetoDialog.cpp.i
+.PHONY : gui/DetalhesProjetoDialog.i
+
+# target to preprocess a source file
+gui/DetalhesProjetoDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/DetalhesProjetoDialog.cpp.i
+.PHONY : gui/DetalhesProjetoDialog.cpp.i
+
+gui/DetalhesProjetoDialog.s: gui/DetalhesProjetoDialog.cpp.s
+.PHONY : gui/DetalhesProjetoDialog.s
+
+# target to generate assembly for a file
+gui/DetalhesProjetoDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/DetalhesProjetoDialog.cpp.s
+.PHONY : gui/DetalhesProjetoDialog.cpp.s
+
+gui/LoginDialog.o: gui/LoginDialog.cpp.o
+.PHONY : gui/LoginDialog.o
+
+# target to build an object file
+gui/LoginDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/LoginDialog.cpp.o
+.PHONY : gui/LoginDialog.cpp.o
+
+gui/LoginDialog.i: gui/LoginDialog.cpp.i
+.PHONY : gui/LoginDialog.i
+
+# target to preprocess a source file
+gui/LoginDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/LoginDialog.cpp.i
+.PHONY : gui/LoginDialog.cpp.i
+
+gui/LoginDialog.s: gui/LoginDialog.cpp.s
+.PHONY : gui/LoginDialog.s
+
+# target to generate assembly for a file
+gui/LoginDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/LoginDialog.cpp.s
+.PHONY : gui/LoginDialog.cpp.s
+
+gui/MainWindow.o: gui/MainWindow.cpp.o
+.PHONY : gui/MainWindow.o
+
+# target to build an object file
+gui/MainWindow.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/MainWindow.cpp.o
+.PHONY : gui/MainWindow.cpp.o
+
+gui/MainWindow.i: gui/MainWindow.cpp.i
+.PHONY : gui/MainWindow.i
+
+# target to preprocess a source file
+gui/MainWindow.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/MainWindow.cpp.i
+.PHONY : gui/MainWindow.cpp.i
+
+gui/MainWindow.s: gui/MainWindow.cpp.s
+.PHONY : gui/MainWindow.s
+
+# target to generate assembly for a file
+gui/MainWindow.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/MainWindow.cpp.s
+.PHONY : gui/MainWindow.cpp.s
+
+gui/RoleDialog.o: gui/RoleDialog.cpp.o
+.PHONY : gui/RoleDialog.o
+
+# target to build an object file
+gui/RoleDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/RoleDialog.cpp.o
+.PHONY : gui/RoleDialog.cpp.o
+
+gui/RoleDialog.i: gui/RoleDialog.cpp.i
+.PHONY : gui/RoleDialog.i
+
+# target to preprocess a source file
+gui/RoleDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/RoleDialog.cpp.i
+.PHONY : gui/RoleDialog.cpp.i
+
+gui/RoleDialog.s: gui/RoleDialog.cpp.s
+.PHONY : gui/RoleDialog.s
+
+# target to generate assembly for a file
+gui/RoleDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/RoleDialog.cpp.s
+.PHONY : gui/RoleDialog.cpp.s
+
+gui/main_qt.o: gui/main_qt.cpp.o
+.PHONY : gui/main_qt.o
+
+# target to build an object file
+gui/main_qt.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/main_qt.cpp.o
+.PHONY : gui/main_qt.cpp.o
+
+gui/main_qt.i: gui/main_qt.cpp.i
+.PHONY : gui/main_qt.i
+
+# target to preprocess a source file
+gui/main_qt.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/main_qt.cpp.i
+.PHONY : gui/main_qt.cpp.i
+
+gui/main_qt.s: gui/main_qt.cpp.s
+.PHONY : gui/main_qt.s
+
+# target to generate assembly for a file
+gui/main_qt.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/avalia_gui.dir/build.make CMakeFiles/avalia_gui.dir/gui/main_qt.cpp.s
+.PHONY : gui/main_qt.cpp.s
+
 main_console.o: main_console.cpp.o
 .PHONY : main_console.o
 
@@ -318,8 +601,21 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... avalia_console_autogen"
+	@echo "... avalia_console_autogen_timestamp_deps"
+	@echo "... avalia_gui_autogen"
+	@echo "... avalia_gui_autogen_timestamp_deps"
+	@echo "... core_autogen"
+	@echo "... core_autogen_timestamp_deps"
 	@echo "... avalia_console"
+	@echo "... avalia_gui"
 	@echo "... core"
+	@echo "... avalia_console_autogen/mocs_compilation.o"
+	@echo "... avalia_console_autogen/mocs_compilation.i"
+	@echo "... avalia_console_autogen/mocs_compilation.s"
+	@echo "... avalia_gui_autogen/mocs_compilation.o"
+	@echo "... avalia_gui_autogen/mocs_compilation.i"
+	@echo "... avalia_gui_autogen/mocs_compilation.s"
 	@echo "... core/AvaliacaoModule.o"
 	@echo "... core/AvaliacaoModule.i"
 	@echo "... core/AvaliacaoModule.s"
@@ -338,6 +634,24 @@ help:
 	@echo "... core/Persistencia.o"
 	@echo "... core/Persistencia.i"
 	@echo "... core/Persistencia.s"
+	@echo "... core_autogen/mocs_compilation.o"
+	@echo "... core_autogen/mocs_compilation.i"
+	@echo "... core_autogen/mocs_compilation.s"
+	@echo "... gui/DetalhesProjetoDialog.o"
+	@echo "... gui/DetalhesProjetoDialog.i"
+	@echo "... gui/DetalhesProjetoDialog.s"
+	@echo "... gui/LoginDialog.o"
+	@echo "... gui/LoginDialog.i"
+	@echo "... gui/LoginDialog.s"
+	@echo "... gui/MainWindow.o"
+	@echo "... gui/MainWindow.i"
+	@echo "... gui/MainWindow.s"
+	@echo "... gui/RoleDialog.o"
+	@echo "... gui/RoleDialog.i"
+	@echo "... gui/RoleDialog.s"
+	@echo "... gui/main_qt.o"
+	@echo "... gui/main_qt.i"
+	@echo "... gui/main_qt.s"
 	@echo "... main_console.o"
 	@echo "... main_console.i"
 	@echo "... main_console.s"

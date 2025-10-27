@@ -69,13 +69,33 @@ include CMakeFiles/core.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/core.dir/flags.make
 
+core_autogen/timestamp: /opt/homebrew/opt/qt/share/qt/libexec/moc
+core_autogen/timestamp: CMakeFiles/core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target core"
+	/opt/homebrew/bin/cmake -E cmake_autogen /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core_autogen.dir/AutogenInfo.json ""
+	/opt/homebrew/bin/cmake -E touch /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/core_autogen/timestamp
+
 CMakeFiles/core.dir/codegen:
 .PHONY : CMakeFiles/core.dir/codegen
+
+CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o: CMakeFiles/core.dir/flags.make
+CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o: core_autogen/mocs_compilation.cpp
+CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o -MF CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/core_autogen/mocs_compilation.cpp
+
+CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/core_autogen/mocs_compilation.cpp > CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.i
+
+CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/core_autogen/mocs_compilation.cpp -o CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.s
 
 CMakeFiles/core.dir/core/Calculos.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/Calculos.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Calculos.cpp
 CMakeFiles/core.dir/core/Calculos.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/core.dir/core/Calculos.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/core.dir/core/Calculos.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/Calculos.cpp.o -MF CMakeFiles/core.dir/core/Calculos.cpp.o.d -o CMakeFiles/core.dir/core/Calculos.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Calculos.cpp
 
 CMakeFiles/core.dir/core/Calculos.cpp.i: cmake_force
@@ -89,7 +109,7 @@ CMakeFiles/core.dir/core/Calculos.cpp.s: cmake_force
 CMakeFiles/core.dir/core/Persistencia.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/Persistencia.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Persistencia.cpp
 CMakeFiles/core.dir/core/Persistencia.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/core.dir/core/Persistencia.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/core.dir/core/Persistencia.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/Persistencia.cpp.o -MF CMakeFiles/core.dir/core/Persistencia.cpp.o.d -o CMakeFiles/core.dir/core/Persistencia.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Persistencia.cpp
 
 CMakeFiles/core.dir/core/Persistencia.cpp.i: cmake_force
@@ -103,7 +123,7 @@ CMakeFiles/core.dir/core/Persistencia.cpp.s: cmake_force
 CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/AvaliacaoModule.cpp
 CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o -MF CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o.d -o CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/AvaliacaoModule.cpp
 
 CMakeFiles/core.dir/core/AvaliacaoModule.cpp.i: cmake_force
@@ -117,7 +137,7 @@ CMakeFiles/core.dir/core/AvaliacaoModule.cpp.s: cmake_force
 CMakeFiles/core.dir/core/MaxHeap.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/MaxHeap.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/MaxHeap.cpp
 CMakeFiles/core.dir/core/MaxHeap.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/core.dir/core/MaxHeap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/core.dir/core/MaxHeap.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/MaxHeap.cpp.o -MF CMakeFiles/core.dir/core/MaxHeap.cpp.o.d -o CMakeFiles/core.dir/core/MaxHeap.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/MaxHeap.cpp
 
 CMakeFiles/core.dir/core/MaxHeap.cpp.i: cmake_force
@@ -131,7 +151,7 @@ CMakeFiles/core.dir/core/MaxHeap.cpp.s: cmake_force
 CMakeFiles/core.dir/core/Paths.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/Paths.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Paths.cpp
 CMakeFiles/core.dir/core/Paths.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/core.dir/core/Paths.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/core.dir/core/Paths.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/Paths.cpp.o -MF CMakeFiles/core.dir/core/Paths.cpp.o.d -o CMakeFiles/core.dir/core/Paths.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Paths.cpp
 
 CMakeFiles/core.dir/core/Paths.cpp.i: cmake_force
@@ -145,7 +165,7 @@ CMakeFiles/core.dir/core/Paths.cpp.s: cmake_force
 CMakeFiles/core.dir/core/CoreAPI.cpp.o: CMakeFiles/core.dir/flags.make
 CMakeFiles/core.dir/core/CoreAPI.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/CoreAPI.cpp
 CMakeFiles/core.dir/core/CoreAPI.cpp.o: CMakeFiles/core.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/core.dir/core/CoreAPI.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/core.dir/core/CoreAPI.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/core.dir/core/CoreAPI.cpp.o -MF CMakeFiles/core.dir/core/CoreAPI.cpp.o.d -o CMakeFiles/core.dir/core/CoreAPI.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/CoreAPI.cpp
 
 CMakeFiles/core.dir/core/CoreAPI.cpp.i: cmake_force
@@ -158,6 +178,7 @@ CMakeFiles/core.dir/core/CoreAPI.cpp.s: cmake_force
 
 # Object files for target core
 core_OBJECTS = \
+"CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/core.dir/core/Calculos.cpp.o" \
 "CMakeFiles/core.dir/core/Persistencia.cpp.o" \
 "CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o" \
@@ -168,6 +189,7 @@ core_OBJECTS = \
 # External object files for target core
 core_EXTERNAL_OBJECTS =
 
+libcore.a: CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o
 libcore.a: CMakeFiles/core.dir/core/Calculos.cpp.o
 libcore.a: CMakeFiles/core.dir/core/Persistencia.cpp.o
 libcore.a: CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o
@@ -176,7 +198,7 @@ libcore.a: CMakeFiles/core.dir/core/Paths.cpp.o
 libcore.a: CMakeFiles/core.dir/core/CoreAPI.cpp.o
 libcore.a: CMakeFiles/core.dir/build.make
 libcore.a: CMakeFiles/core.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libcore.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libcore.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/core.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/core.dir/link.txt --verbose=$(VERBOSE)
 
@@ -188,7 +210,7 @@ CMakeFiles/core.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/core.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/core.dir/clean
 
-CMakeFiles/core.dir/depend:
+CMakeFiles/core.dir/depend: core_autogen/timestamp
 	cd /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/core.dir/depend
 

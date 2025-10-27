@@ -69,13 +69,33 @@ include CMakeFiles/avalia_console.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/avalia_console.dir/flags.make
 
+avalia_console_autogen/timestamp: /opt/homebrew/opt/qt/share/qt/libexec/moc
+avalia_console_autogen/timestamp: CMakeFiles/avalia_console.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC for target avalia_console"
+	/opt/homebrew/bin/cmake -E cmake_autogen /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console_autogen.dir/AutogenInfo.json ""
+	/opt/homebrew/bin/cmake -E touch /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console_autogen/timestamp
+
 CMakeFiles/avalia_console.dir/codegen:
 .PHONY : CMakeFiles/avalia_console.dir/codegen
+
+CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o: CMakeFiles/avalia_console.dir/flags.make
+CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o: avalia_console_autogen/mocs_compilation.cpp
+CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o: CMakeFiles/avalia_console.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o -MF CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console_autogen/mocs_compilation.cpp
+
+CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console_autogen/mocs_compilation.cpp > CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.i
+
+CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console_autogen/mocs_compilation.cpp -o CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.s
 
 CMakeFiles/avalia_console.dir/main_console.cpp.o: CMakeFiles/avalia_console.dir/flags.make
 CMakeFiles/avalia_console.dir/main_console.cpp.o: /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/main_console.cpp
 CMakeFiles/avalia_console.dir/main_console.cpp.o: CMakeFiles/avalia_console.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/avalia_console.dir/main_console.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/avalia_console.dir/main_console.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/avalia_console.dir/main_console.cpp.o -MF CMakeFiles/avalia_console.dir/main_console.cpp.o.d -o CMakeFiles/avalia_console.dir/main_console.cpp.o -c /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/main_console.cpp
 
 CMakeFiles/avalia_console.dir/main_console.cpp.i: cmake_force
@@ -88,16 +108,18 @@ CMakeFiles/avalia_console.dir/main_console.cpp.s: cmake_force
 
 # Object files for target avalia_console
 avalia_console_OBJECTS = \
+"CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/avalia_console.dir/main_console.cpp.o"
 
 # External object files for target avalia_console
 avalia_console_EXTERNAL_OBJECTS =
 
+avalia_console: CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o
 avalia_console: CMakeFiles/avalia_console.dir/main_console.cpp.o
 avalia_console: CMakeFiles/avalia_console.dir/build.make
 avalia_console: libcore.a
 avalia_console: CMakeFiles/avalia_console.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable avalia_console"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable avalia_console"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/avalia_console.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -108,7 +130,7 @@ CMakeFiles/avalia_console.dir/clean:
 	$(CMAKE_COMMAND) -P CMakeFiles/avalia_console.dir/cmake_clean.cmake
 .PHONY : CMakeFiles/avalia_console.dir/clean
 
-CMakeFiles/avalia_console.dir/depend:
+CMakeFiles/avalia_console.dir/depend: avalia_console_autogen/timestamp
 	cd /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/avalia_console.dir/depend
 

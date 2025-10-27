@@ -8,6 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "" "avalia_console_autogen/timestamp" "custom" "avalia_console_autogen/deps"
+  "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console_autogen/mocs_compilation.cpp" "CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/avalia_console.dir/avalia_console_autogen/mocs_compilation.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/main_console.cpp" "CMakeFiles/avalia_console.dir/main_console.cpp.o" "gcc" "CMakeFiles/avalia_console.dir/main_console.cpp.o.d"
   )
 

@@ -8,12 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "" "core_autogen/timestamp" "custom" "core_autogen/deps"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/AvaliacaoModule.cpp" "CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o" "gcc" "CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Calculos.cpp" "CMakeFiles/core.dir/core/Calculos.cpp.o" "gcc" "CMakeFiles/core.dir/core/Calculos.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/CoreAPI.cpp" "CMakeFiles/core.dir/core/CoreAPI.cpp.o" "gcc" "CMakeFiles/core.dir/core/CoreAPI.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/MaxHeap.cpp" "CMakeFiles/core.dir/core/MaxHeap.cpp.o" "gcc" "CMakeFiles/core.dir/core/MaxHeap.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Paths.cpp" "CMakeFiles/core.dir/core/Paths.cpp.o" "gcc" "CMakeFiles/core.dir/core/Paths.cpp.o.d"
   "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/core/Persistencia.cpp" "CMakeFiles/core.dir/core/Persistencia.cpp.o" "gcc" "CMakeFiles/core.dir/core/Persistencia.cpp.o.d"
+  "/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/core_autogen/mocs_compilation.cpp" "CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

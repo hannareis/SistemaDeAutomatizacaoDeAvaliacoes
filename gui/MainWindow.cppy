@@ -1,0 +1,314 @@
+#include "MainWindow.h"
+
+#include <QMessageBox>
+#include <QTabWidget>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QGroupBox>  
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QDoubleSpinBox>
+#include <QTextEdit>
+#include "../core/CoreAPI.h"
+#include "../core/Persistencia.h"
+#include "../core/Paths.h"
+
+
+MainWindow::MainWindow(QWidget* parent)
+    : QMainWindow(parent)
+{
+    setWindowTitle("AvaliaEncoeng");
+    resize(900, 600);
+
+    tabs = new QTabWidget(this);
+    setCentralWidget(tabs);
+
+    buildCadastrosTab();
+    buildAvaliarTab();
+    buildRankingTab();
+}
+
+void MainWindow::buildCadastrosTab() {
+    auto* page = new QWidget(this);
+    auto* root = new QVBoxLayout(page);
+
+    // -------------------- AVALIADORES --------------------
+    auto* gbA = new QGroupBox("Avaliadores", page);
+    auto* fa  = new QFormLayout(gbA);
+
+    auto* inNome      = new QLineEdit(gbA);
+    auto* inEmail     = new QLineEdit(gbA);
+    auto* inFormacao  = new QLineEdit(gbA);
+    auto* inArea      = new QLineEdit(gbA);
+
+    fa->addRow("Nome:",      inNome);
+    fa->addRow("Email:",     inEmail);
+    fa->addRow("Formacao:",  inFormacao);
+    fa->addRow("Area:",      inArea);
+
+    auto* btnCadA = new QPushButton("Cadastrar Avaliador", gbA);
+    auto* btnListA= new QPushButton("Listar Avaliadores", gbA);
+    auto* rowA = new QHBoxLayout();
+    rowA->addWidget(btnCadA);
+    rowA->addWidget(btnListA);
+    fa->addRow(rowA);
+
+    // Tabela de listagem (reutilizada para avaliadores/projetos)
+    auto* tabela = new QTableWidget(page);
+    tabela->setColumnCount(4);
+    tabela->setHorizontalHeaderLabels({"ID","Coluna 2","Coluna 3","Coluna 4"});
+    tabela->horizontalHeader()->setStretchLastSection(true);
+
+    // -------------------- PROJETOS --------------------
+    auto* gbP = new QGroupBox("Projetos", page);
+    auto* fp  = new QFormLayout(gbP);
+
+    auto* inTitulo = new QLineEdit(gbP);
+    auto* inAreaP  = new QLineEdit(gbP);
+    auto* inTipo   = new QLineEdit(gbP);   // "PROJETO" ou "ARTIGO"
+
+    fp->addRow("Titulo:", inTitulo);
+    fp->addRow("Area:",   inAreaP);
+    fp->addRow("Tipo:",   inTipo);
+
+    auto* btnCadP = new QPushButton("Cadastrar Projeto", gbP);
+    auto* btnListP= new QPushButton("Listar Projetos", gbP);
+    auto* rowP = new QHBoxLayout();
+    rowP->addWidget(btnCadP);
+    rowP->addWidget(btnListP);
+    fp->addRow(rowP);
+
+    // Monta a página
+    root->addWidget(gbA);
+    root->addWidget(gbP);
+    root->addWidget(tabela);
+    root->addStretch(1);
+
+    // -------------------- AÇÕES --------------------
+    // Cadastrar Avaliador
+    connect(btnCadA, &QPushButton::clicked, this, [=]{
+        CoreAPI api; api.carregar();
+        if (inNome->text().isEmpty() || inEmail->text().isEmpty()) {
+            QMessageBox::warning(page, "Cadastro", "Nome e Email são obrigatórios.");
+            return;
+        }
+        int id = api.cadastrarAvaliador(
+            inNome->text().toStdString(),
+            inEmail->text().toStdString(),
+            inFormacao->text().toStdString(),
+            inArea->text().toStdString()
+        );
+        QMessageBox::information(page, "Cadastro",
+                                 QString("Avaliador cadastrado com ID %1").arg(id));
+        inNome->clear(); inEmail->clear(); inFormacao->clear(); inArea->clear();
+    });
+
+    // Listar Avaliadores
+    connect(btnListA, &QPushButton::clicked, this, [=]{
+        auto lista = Persist::carregarAvaliadores(dataDir() + "/avaliadores.csv");
+        tabela->clear();
+        tabela->setColumnCount(4);
+        tabela->setHorizontalHeaderLabels({"ID","Nome","Email","Area"});
+        tabela->setRowCount((int)lista.size());
+        for (int i=0;i<(int)lista.size();++i) {
+            tabela->setItem(i,0,new QTableWidgetItem(QString::number(lista[i].id)));
+            tabela->setItem(i,1,new QTableWidgetItem(QString::fromStdString(lista[i].nome)));
+            tabela->setItem(i,2,new QTableWidgetItem(QString::fromStdString(lista[i].email)));
+            tabela->setItem(i,3,new QTableWidgetItem(QString::fromStdString(lista[i].area)));
+        }
+    });
+
+    // Cadastrar Projeto
+    connect(btnCadP, &QPushButton::clicked, this, [=]{
+        CoreAPI api; api.carregar();
+        if (inTitulo->text().isEmpty() || inTipo->text().isEmpty()) {
+            QMessageBox::warning(page, "Cadastro", "Título e Tipo são obrigatórios.");
+            return;
+        }
+        int id = api.cadastrarProjeto(
+            inTitulo->text().toStdString(),
+            inAreaP->text().toStdString(),
+            inTipo->text().toStdString()
+        );
+        QMessageBox::information(page, "Cadastro",
+                                 QString("Projeto cadastrado com ID %1").arg(id));
+        inTitulo->clear(); inAreaP->clear(); inTipo->clear();
+    });
+
+    // Listar Projetos
+    connect(btnListP, &QPushButton::clicked, this, [=]{
+        auto lista = Persist::carregarProjetos(dataDir() + "/projetos.csv");
+        tabela->clear();
+        tabela->setColumnCount(4);
+        tabela->setHorizontalHeaderLabels({"ID","Titulo","Area","Tipo"});
+        tabela->setRowCount((int)lista.size());
+        for (int i=0;i<(int)lista.size();++i) {
+            tabela->setItem(i,0,new QTableWidgetItem(QString::number(lista[i].id)));
+            tabela->setItem(i,1,new QTableWidgetItem(QString::fromStdString(lista[i].titulo)));
+            tabela->setItem(i,2,new QTableWidgetItem(QString::fromStdString(lista[i].area)));
+            tabela->setItem(i,3,new QTableWidgetItem(QString::fromStdString(lista[i].tipo)));
+        }
+    });
+
+    // Adiciona a aba
+    tabs->addTab(page, "Cadastros");
+}
+
+void MainWindow::buildAvaliarTab() {
+    auto* page = new QWidget(this);
+    auto* v = new QVBoxLayout(page);
+
+    auto* title = new QLabel("Registrar Avaliação", page);
+    title->setStyleSheet("font-size: 18px; font-weight: 600;");
+    v->addWidget(title);
+
+    // --- Combos de seleção ---
+    auto* rowSel = new QHBoxLayout();
+    auto* lblProj = new QLabel("Projeto:", page);
+    auto* cbProj  = new QComboBox(page);
+    auto* lblAval = new QLabel("Avaliador:", page);
+    auto* cbAval  = new QComboBox(page);
+    rowSel->addWidget(lblProj); rowSel->addWidget(cbProj, 1);
+    rowSel->addSpacing(12);
+    rowSel->addWidget(lblAval); rowSel->addWidget(cbAval, 1);
+    v->addLayout(rowSel);
+
+    // Carrega dados das tabelas (CSV) para os combos
+    auto projetos = Persist::carregarProjetos(dataDir() + "/projetos.csv");
+    for (const auto& p : projetos) {
+        // texto visível + guarda o ID como userData
+        cbProj->addItem(QString::fromStdString(p.titulo) + "  (" + QString::fromStdString(p.tipo) + ")",
+                        QVariant(p.id));
+    }
+    auto avaliadores = Persist::carregarAvaliadores(dataDir() + "/avaliadores.csv");
+    for (const auto& a : avaliadores) {
+        cbAval->addItem(QString::fromStdString(a.nome) + " <" + QString::fromStdString(a.email) + ">",
+                        QVariant(a.id));
+    }
+
+    // Mensagem quando não há dados
+    if (cbProj->count() == 0 || cbAval->count() == 0) {
+        v->addWidget(new QLabel("⚠️ Cadastre ao menos 1 Projeto e 1 Avaliador nas abas de Cadastros.", page));
+    }
+
+    // --- Notas (0–10) ---
+    auto* gridNotas = new QHBoxLayout();
+    auto* n1 = new QDoubleSpinBox(page);
+    auto* n2 = new QDoubleSpinBox(page);
+    auto* n3 = new QDoubleSpinBox(page);
+    auto* n4 = new QDoubleSpinBox(page);
+    for (auto* sp : {n1,n2,n3,n4}) {
+        sp->setRange(0.0, 10.0);
+        sp->setSingleStep(0.5);
+        sp->setDecimals(1);
+        sp->setValue(8.0);
+        gridNotas->addWidget(sp);
+    }
+    v->addWidget(new QLabel("Notas (0 a 10):", page));
+    v->addLayout(gridNotas);
+
+    // --- Comentário ---
+    auto* txt = new QTextEdit(page);
+    txt->setPlaceholderText("Comentário (mínimo 5 caracteres)...");
+    txt->setFixedHeight(100);
+    v->addWidget(txt);
+
+    // --- Botão Salvar ---
+    auto* btnSalvar = new QPushButton("Registrar Avaliação", page);
+    btnSalvar->setStyleSheet("padding: 8px 14px; font-weight: 600;");
+    v->addWidget(btnSalvar);
+    v->addStretch(1);
+
+    // --- Ação do botão ---
+    connect(btnSalvar, &QPushButton::clicked, this, [=]{
+        if (cbProj->count() == 0 || cbAval->count() == 0) {
+            QMessageBox::warning(page, "Avaliação", "Cadastre Projeto e Avaliador primeiro.");
+            return;
+        }
+        if (txt->toPlainText().trimmed().size() < 5) {
+            QMessageBox::warning(page, "Avaliação", "Comentário muito curto.");
+            return;
+        }
+
+        int projeto_id   = cbProj->currentData().toInt();
+        int avaliador_id = cbAval->currentData().toInt();
+
+        CoreAPI api; 
+        api.carregar();
+        int novoId = api.registrarAvaliacao(
+            projeto_id, avaliador_id,
+            n1->value(), n2->value(), n3->value(), n4->value(),
+            txt->toPlainText().toStdString()
+        );
+
+        if (novoId == -1) {
+            QMessageBox::warning(page, "Avaliação",
+                                 "Esse avaliador já avaliou este projeto.");
+            return;
+        }
+
+        QMessageBox::information(page, "Avaliação",
+                                 QString("Avaliação registrada com ID %1.").arg(novoId));
+
+        // limpa campos
+        n1->setValue(8); n2->setValue(8); n3->setValue(8); n4->setValue(8);
+        txt->clear();
+    });
+
+    tabs->addTab(page, "Avaliar");
+}
+
+void MainWindow::buildRankingTab() {
+    auto* page = new QWidget(this);
+    auto* v = new QVBoxLayout(page);
+
+    auto* title = new QLabel("Ranking de Projetos", page);
+    title->setStyleSheet("font-size: 18px; font-weight: 600;");
+    v->addWidget(title);
+
+    // Cria a tabela de ranking
+    auto* table = new QTableWidget(page);
+    table->setColumnCount(3);
+    table->setHorizontalHeaderLabels({"Posição", "Projeto ID", "Média"});
+    table->horizontalHeader()->setStretchLastSection(true);
+    v->addWidget(table);
+
+    // Botão Exportar
+    auto* btnExportar = new QPushButton("Exportar Ranking para CSV", page);
+    btnExportar->setStyleSheet("padding: 6px 12px; font-weight: bold;");
+    v->addWidget(btnExportar);
+
+    // -----------------------------
+    // Integração com o CoreAPI
+    // -----------------------------
+    // inclui cabeçalhos necessários:
+    CoreAPI api;
+    api.carregar();
+    auto ranking = api.ranking();
+
+    // preenche a tabela com dados reais
+    table->setRowCount(static_cast<int>(ranking.size()));
+    int pos = 1;
+    for (int i = 0; i < static_cast<int>(ranking.size()); ++i) {
+        double media = ranking[i].first;
+        int projeto_id = ranking[i].second;
+
+        table->setItem(i, 0, new QTableWidgetItem(QString::number(pos++) + "º"));
+        table->setItem(i, 1, new QTableWidgetItem(QString::number(projeto_id)));
+        table->setItem(i, 2, new QTableWidgetItem(QString::number(media, 'f', 2)));
+    }
+
+    // conecta o botão ao método de exportação
+    QObject::connect(btnExportar, &QPushButton::clicked, [=]() mutable {
+        api.exportarRankingCSV();
+        QMessageBox::information(page, "Exportação", "Ranking exportado com sucesso!");
+    });
+
+    tabs->addTab(page, "Ranking");
+}

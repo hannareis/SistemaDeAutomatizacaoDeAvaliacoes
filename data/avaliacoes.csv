@@ -1,1 +1,5 @@
 id;projeto_id;avaliador_id;n1;n2;n3;n4;comentario;media_calculada
+1;1;1;9;8;9;10;Muito bom;9
+2;1;2;8;9;8;9;Apresentacao clara;8.5
+3;2;1;7;8;7;8;Bons resultados;7.5
+4;2;2;6;7;8;7;Metodologia ok;7

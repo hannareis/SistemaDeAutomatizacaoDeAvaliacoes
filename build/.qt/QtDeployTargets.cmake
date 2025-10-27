@@ -1,0 +1,6 @@
+set(__QT_DEPLOY_TARGET_core_FILE /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/libcore.a)
+set(__QT_DEPLOY_TARGET_core_TYPE STATIC_LIBRARY)
+set(__QT_DEPLOY_TARGET_avalia_console_FILE /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_console)
+set(__QT_DEPLOY_TARGET_avalia_console_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_avalia_gui_FILE /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/avalia_gui)
+set(__QT_DEPLOY_TARGET_avalia_gui_TYPE EXECUTABLE)

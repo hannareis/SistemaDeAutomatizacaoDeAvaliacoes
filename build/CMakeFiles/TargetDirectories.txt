@@ -1,4 +1,11 @@
 /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core.dir
 /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_gui.dir
 /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/edit_cache.dir
 /Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/rebuild_cache.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core_autogen_timestamp_deps.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/core_autogen.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console_autogen_timestamp_deps.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_console_autogen.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_gui_autogen_timestamp_deps.dir
+/Users/talesmoreiradeoliveira/Projeto/AvaliaEncoeng/build/CMakeFiles/avalia_gui_autogen.dir

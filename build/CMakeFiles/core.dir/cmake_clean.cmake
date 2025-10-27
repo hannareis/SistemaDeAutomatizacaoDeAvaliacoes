@@ -1,4 +1,7 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/core_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/core_autogen.dir/ParseCache.txt"
+  "core_autogen"
   "CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o"
   "CMakeFiles/core.dir/core/AvaliacaoModule.cpp.o.d"
   "CMakeFiles/core.dir/core/Calculos.cpp.o"
@@ -11,6 +14,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/core.dir/core/Paths.cpp.o.d"
   "CMakeFiles/core.dir/core/Persistencia.cpp.o"
   "CMakeFiles/core.dir/core/Persistencia.cpp.o.d"
+  "CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/core.dir/core_autogen/mocs_compilation.cpp.o.d"
+  "core_autogen/mocs_compilation.cpp"
+  "core_autogen/timestamp"
   "libcore.a"
   "libcore.pdb"
 )
