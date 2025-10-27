@@ -5,8 +5,8 @@
 using namespace std;
 
 struct Notas {
-    int id;
-	double nota;
+    int id = 0;
+    double nota = 0.0;
     string nome_avaliador;
     string equipe;
     string projeto;
