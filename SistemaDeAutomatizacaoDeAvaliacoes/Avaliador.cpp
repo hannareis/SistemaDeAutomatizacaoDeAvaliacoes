@@ -21,6 +21,21 @@ using namespace std;
 
 const string ARQUIVO_AVALIADOR = "avaliadores.txt";
 
+
+// Validação de nome : a função não aceita dígitos e precisa de pelo menos 3 caracteres
+
+static bool contemDigito(const string& s) {
+	for (unsigned char c : s) if (isdigit(c)) return true;
+    return false;
+}
+
+static bool temLetra(const string& s) {
+    for ( unsigned char c : s) if (isalpha(c)) return true;
+    return false;
+}
+
+
+
 //Validação de CPF (aceita com pontos e traço)
 
 bool validarCPF(const string& cpf) {
@@ -121,69 +136,191 @@ bool verificarEmailExistente(const string& email) {
 
 
 //  Criação de avaliador
-
 void criarAvaliador() {
     Avaliador a;
-    cout << "\n=== Cadastro de Avaliador ===\n";
+    cout << "\n=== Bem-vindo ao Cadastro do Avaliador ===\n";
 
-    cout << "Nome: ";
-    getline(cin, a.nome);
-    if (a.nome.empty()) throw ExcecaoCampoVazio("O nome não pode estar em branco.");
+    enum Etapa { NOME = 0, EMAIL, CPF, SENHA, CATEGORIA, SALVAR };
+    Etapa etapa = NOME;
 
-    // Valida e-mail
     while (true) {
-        cout << "E-mail: ";
-        getline(cin, a.email);
-        try {
-            if (a.email.empty())
-                throw ExcecaoCampoVazio("O e-mail não pode estar em branco.");
+        switch (etapa) {
 
-            size_t posArroba = a.email.find('@');
-            size_t posPonto = a.email.find('.', posArroba);
-            if (posArroba == string::npos || posPonto == string::npos || posPonto <= posArroba + 1)
-                throw ExcecaoAutenticacao("Formato de e-mail inválido! Use algo como nome@dominio.com.");
+ //  Nome
+        case NOME: {
+            cout << "Digite o nome (ou 0 para cancelar): ";
+            getline(cin, a.nome);
 
-            if (verificarEmailExistente(a.email))
-                throw ExcecaoAutenticacao("Este e-mail já está cadastrado.");
-
+            if (a.nome == "0") {
+                cout << "Cancelando o cadastro e voltando ao menu...\n";
+                return; // não há etapa anterior ao nome
+            }
+            if (a.nome.empty() || a.nome.size() < 3 || contemDigito(a.nome) || !temLetra(a.nome)) {
+                cout << "[Erro] Use apenas letras e no mínimo 3 caracteres.\n";
+                break; // continua na etapa NOME
+            }
+            etapa = EMAIL;
             break;
         }
-        catch (const exception& e) {
-            cout << "[Erro de E-mail] " << e.what() << "\nTente novamente.\n";
-        }
-    }
 
-    // Valida CPF
-    while (true) {
-        cout << "CPF (com ou sem pontos): ";
-        getline(cin, a.cpf);
-        try {
-            if (!validarCPF(a.cpf))
-                throw ExcecaoCPFInvalido("CPF inválido!");
-            if (verificarCPFExistente(a.cpf))
-                throw ExcecaoAutenticacao("Este CPF já está cadastrado.");
+
+
+// case EMAIL: {
+//    cout << "Digite o e-mail (ou 0 para voltar): ";
+//    getline(cin, a.email);
+//
+//    if (a.email == "0") {
+//        cout << "Voltando para o campo Nome...\n";
+//        etapa = NOME;
+//        break;
+//    }
+//    try {
+//        if (a.email.empty())
+//            throw ExcecaoCampoVazio("O e-mail não pode estar em branco. Informe um e-mail válido.");
+//
+//        size_t posArroba = a.email.find('@');
+//        size_t posPonto  = a.email.find('.', (posArroba == string::npos ? 0 : posArroba + 1));
+//        if (posArroba == string::npos || posPonto == string::npos || posPonto <= posArroba + 1)
+//            throw ExcecaoAutenticacao("Formato de e-mail inválido. Use algo como nome@dominio.com.");
+//
+//        // --- Sugeridor de domínio para evitar typos (ex.: gmai.cm -> gmail.com)
+//        string emailLower = toLowerStr(a.email);
+//        string dominio = (posArroba==string::npos) ? "" : emailLower.substr(posArroba+1);
+//
+//        // Lista de provedores populares ()
+//        const vector<string> dominiosPop = {
+//            "gmail.com","outlook.com","hotmail.com","live.com",
+//            "yahoo.com","icloud.com","uol.com.br","bol.com.br","terra.com.br"
+//        };
+//
+//        string melhor; int melhorDist = INT_MAX;
+//        for (const auto& d: dominiosPop) {
+//            int dist = levDist(dominio, d);
+//            if (dist < melhorDist) { melhorDist = dist; melhor = d; }
+//        }
+//
+//        // Se estiver a 1 ou 2 edições de distância de um popular, sugerimos correção
+//        if (!dominio.empty() && dominio != melhor && melhorDist <= 2) {
+//            cout << " Você quis dizer '" << melhor << "'? (1=Sim corrigir, 2=Usar como digitado, 0=Voltar)\n> ";
+//            string op; getline(cin, op);
+//            if (op == "0") { cout << "Voltando para o campo Nome...\n"; etapa = NOME; break; }
+//            if (op == "1") {
+//                a.email = a.email.substr(0, posArroba+1) + melhor;
+//                cout << "E-mail ajustado para: " << a.email << "\n";
+//            }
+//            // op==2 segue com o que foi digitado
+//        }
+//
+//        if (verificarEmailExistente(a.email))
+//            throw ExcecaoAutenticacao("Este e-mail já está em uso. Tente outro.");
+//
+//        etapa = CPF;
+//    } catch (const exception& e) {
+//        cout << "[Erro de E-mail] " << e.what() << "\nTente novamente.\n";
+//    }
+//    break;
+//}
+ 
+ 
+ 
+ //  E-mail
+        case EMAIL: {
+            cout << "Digite o e-mail (ou 0 para voltar): ";
+            getline(cin, a.email);
+
+            if (a.email == "0") {
+                cout << "Voltando para o campo Nome...\n";
+                etapa = NOME;
+                break;
+            }
+            try {
+                if (a.email.empty())
+                    throw ExcecaoCampoVazio("O e-mail não pode estar em branco. Informe um e-mail válido.");
+
+                size_t posArroba = a.email.find('@');
+                size_t posPonto = a.email.find('.', (posArroba == string::npos ? 0 : posArroba + 1));
+                if (posArroba == string::npos || posPonto == string::npos || posPonto <= posArroba + 1)
+                    throw ExcecaoAutenticacao("Formato de e-mail inválido. Use algo como nome@dominio.com.");
+
+                if (verificarEmailExistente(a.email))
+                    throw ExcecaoAutenticacao("Este e-mail já está em uso. Tente outro.");
+
+                etapa = CPF;
+            }
+            catch (const exception& e) {
+                cout << "[Erro de E-mail] " << e.what() << "\nTente novamente.\n";
+            }
             break;
         }
-        catch (const exception& e) {
-            cout << "[Erro de CPF] " << e.what() << "\nTente novamente.\n";
+
+     
+  //  CPF 
+        case CPF: {
+            cout << "Digite o CPF (com ou sem pontos) (ou 0 para voltar): ";
+            string entradaCPF;
+            getline(cin, entradaCPF);
+
+            if (entradaCPF == "0") { // volta para E-mail
+                cout << "Voltando para o campo E-mail...\n";
+                etapa = EMAIL;
+                break;
+            }
+            a.cpf = entradaCPF;
+
+            try {
+                if (!validarCPF(a.cpf))
+                    throw ExcecaoCPFInvalido("CPF inválido. Verifique e tente novamente.");
+                if (verificarCPFExistente(a.cpf))
+                    throw ExcecaoAutenticacao("Este CPF já está cadastrado.");
+                etapa = SENHA;
+            }
+            catch (const exception& e) {
+                cout << "[Erro de CPF] " << e.what() << "\nTente novamente.\n";
+            }
+            break;
         }
-    }
 
-    // Senha
-    cout << "Senha: ";
-    getline(cin, a.senha);
-    if (a.senha.empty()) throw ExcecaoCampoVazio("A senha não pode estar vazia.");
 
-    // Categoria e área
-    menuCategoriaEArea(a.categoria, a.areaEspecialidade);
+ // Senha 
+        case SENHA: {
+            cout << "Crie uma senha (ou 0 para voltar): ";
+            string entradaSenha;
+            getline(cin, entradaSenha);
 
-    // Salva
-    ofstream file(ARQUIVO_AVALIADOR, ios::app);
-    file << limparCPF(a.cpf) << ";" << a.nome << ";" << a.email << ";" << a.senha
-        << ";" << a.categoria << ";" << a.areaEspecialidade << "\n";
-    file.close();
+            if (entradaSenha == "0") { // volta para CPF
+                cout << "Voltando para o campo CPF...\n";
+                etapa = CPF;
+                break;
+            }
+            if (entradaSenha.empty()) {
+                cout << "[Erro de Senha] A senha não pode estar vazia.\n";
+                break; // permanece na etapa SENHA
+            }
+            a.senha = entradaSenha;
+            etapa = CATEGORIA;
+            break;
+        }
 
-    cout << "\n Avaliador cadastrado com sucesso!\n";
+ //  Categoria / Área
+        case CATEGORIA: {
+            
+            menuCategoriaEArea(a.categoria, a.areaEspecialidade);
+            etapa = SALVAR;
+            break;
+        }
+
+ //  Salvar =====
+        case SALVAR: {
+            ofstream file(ARQUIVO_AVALIADOR, ios::app);
+            file << limparCPF(a.cpf) << ";" << a.nome << ";" << a.email << ";" << a.senha
+                << ";" << a.categoria << ";" << a.areaEspecialidade << "\n";
+            file.close();
+            cout << "\n Avaliador cadastrado com sucesso!\n";
+            return;
+        }
+
+        } // switch
+    } // while
 }
 
 
