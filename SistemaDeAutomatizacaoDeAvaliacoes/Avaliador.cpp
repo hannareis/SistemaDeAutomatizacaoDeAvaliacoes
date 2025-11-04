@@ -1,47 +1,74 @@
-/*
-===========================================================
-Sistema de Automação de Avaliações
-Módulo: Avaliadores
-Autor: Thiago Carvalho Rodrigues
-Descrição: Gerencia cadastro, validação, atualização,
-autenticação e exclusão de avaliadores.
-===========================================================
-*/
+ï»¿#include "Avaliador.hpp"
+#include "TratamentoExcecao.hpp"
+#include "MenuAvaliadores.hpp"
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <limits>
 #include <cctype>
-#include "Avaliador.hpp"
-#include "TratamentoExcecao.hpp"
-#include "MenuAvaliadores.hpp"
+#include <string>
 
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::exception;
+using std::getline;
+using std::ios;
+using std::numeric_limits;
+using std::size_t;
+using std::string;
+using std::stringstream;
+using std::vector;
 
+// Caminho do arquivo (mantido)
 const string ARQUIVO_AVALIADOR = "avaliadores.txt";
 
+// ============================
+// Helpers "privados" do arquivo
+// ============================
+namespace {
+    // Nome: sem dÃ­gitos e com pelo menos 3 caracteres
+    static bool contemDigito(const string& s) {
+        for (unsigned char c : s) if (std::isdigit(c)) return true;
+        return false;
+    }
 
-// Validação de nome : a função não aceita dígitos e precisa de pelo menos 3 caracteres
+    static bool temLetra(const string& s) {
+        for (unsigned char c : s) if (std::isalpha(c)) return true;
+        return false;
+    }
 
-static bool contemDigito(const string& s) {
-	for (unsigned char c : s) if (isdigit(c)) return true;
-    return false;
+    // Ler linha com seguranÃ§a (evita repetir ignore em vÃ¡rios pontos)
+    static string getlineSafe() {
+        string tmp;
+        std::getline(cin, tmp);
+        return tmp;
+    }
+
+    static bool emailValido(const std::string& e) {
+        if (e.empty()) return false;
+        size_t at = e.find('@');
+        if (at == string::npos || at == 0 || at == e.size() - 1) return false;
+
+        size_t dot = e.find('.', at + 1);
+        if (dot == string::npos) return false;
+        if (dot <= at + 1) return false;          // exige algo entre @ e .
+        if (dot >= e.size() - 1) return false;    // nÃ£o termina com ponto
+
+        return true;
+    }
+
 }
 
-static bool temLetra(const string& s) {
-    for ( unsigned char c : s) if (isalpha(c)) return true;
-    return false;
-}
-
-
-
-//Validação de CPF (aceita com pontos e traço)
-
+// ============================
+// ValidaÃ§Ãµes e NormalizaÃ§Ãµes
+// ============================
 bool validarCPF(const string& cpf) {
     string apenasDigitos;
     for (char c : cpf)
-        if (isdigit(c)) apenasDigitos += c;
+        if (std::isdigit(static_cast<unsigned char>(c))) apenasDigitos += c;
 
     if (apenasDigitos.length() != 11) return false;
     if (apenasDigitos == string(11, apenasDigitos[0])) return false;
@@ -63,59 +90,61 @@ bool validarCPF(const string& cpf) {
     return true;
 }
 
-//Normaliza CPF (remove pontos e traço)
-
 string limparCPF(const string& cpf) {
     string apenasDigitos;
     for (char c : cpf)
-        if (isdigit(c)) apenasDigitos += c;
+        if (std::isdigit(static_cast<unsigned char>(c))) apenasDigitos += c;
     return apenasDigitos;
 }
 
-
-//Carrega avaliadores do arquivo
-
+// ============================
+// PersistÃªncia (arquivo)
+// ============================
 vector<Avaliador> carregarAvaliadores() {
     vector<Avaliador> lista;
-    ifstream file(ARQUIVO_AVALIADOR);
+    std::ifstream file(ARQUIVO_AVALIADOR);
     if (!file.is_open()) return lista;
 
     string linha;
-    while (getline(file, linha)) {
+    while (std::getline(file, linha)) {
         if (linha.empty()) continue;
         Avaliador a;
         stringstream ss(linha);
-        getline(ss, a.cpf, ';');
-        getline(ss, a.nome, ';');
-        getline(ss, a.email, ';');
-        getline(ss, a.senha, ';');
-        getline(ss, a.categoria, ';');
-        getline(ss, a.areaEspecialidade, ';');
+        std::getline(ss, a.cpf, ';');
+        std::getline(ss, a.nome, ';');
+        std::getline(ss, a.email, ';');
+        std::getline(ss, a.senha, ';');
+        std::getline(ss, a.categoria, ';');
+        std::getline(ss, a.areaEspecialidade, ';');
         lista.push_back(a);
     }
     return lista;
 }
 
-
-//  Salva avaliadores no arquivo
-
 void salvarAvaliadores(const vector<Avaliador>& lista) {
-    ofstream file(ARQUIVO_AVALIADOR, ios::trunc);
-    for (const auto& a : lista)
-        file << limparCPF(a.cpf) << ";" << a.nome << ";" << a.email << ";" << a.senha
-        << ";" << a.categoria << ";" << a.areaEspecialidade << "\n";
+    std::ofstream file(ARQUIVO_AVALIADOR, ios::trunc);
+    if (!file.is_open()) {
+        cout << "[Erro] NÃ£o foi possÃ­vel abrir o arquivo '" << ARQUIVO_AVALIADOR << "' para escrita (truncate).\n";
+        return;
+    }
+    for (const auto& a : lista) {
+        file << limparCPF(a.cpf) << ';'
+            << a.nome << ';'
+            << a.email << ';'
+            << a.senha << ';'
+            << a.categoria << ';'
+            << a.areaEspecialidade << '\n';
+    }
 }
 
-
-//  Verifica CPF duplicado (recursivo, padronizado)
-
-bool verificarRecursivo(const vector<Avaliador>& lista, const string& cpf, int i) {
-    if (i >= (int)lista.size()) return false;
-
-    string cpfLista = limparCPF(lista[i].cpf);
-    string cpfDigitado = limparCPF(cpf);
+// ============================
+// Consultas / Regras simples
+// ============================
+static bool verificarRecursivo(const vector<Avaliador>& lista, const string& cpf, int i) {
+    if (i >= static_cast<int>(lista.size())) return false;
+    const string cpfLista = limparCPF(lista[i].cpf);
+    const string cpfDigitado = limparCPF(cpf);
     if (cpfLista == cpfDigitado) return true;
-
     return verificarRecursivo(lista, cpf, i + 1);
 }
 
@@ -124,9 +153,6 @@ bool verificarCPFExistente(const string& cpf) {
     return verificarRecursivo(lista, cpf, 0);
 }
 
-
-//  Verifica se o e-mail já existe (evita duplicação)
-
 bool verificarEmailExistente(const string& email) {
     auto lista = carregarAvaliadores();
     for (const auto& a : lista)
@@ -134,8 +160,9 @@ bool verificarEmailExistente(const string& email) {
     return false;
 }
 
-
-//  Criação de avaliador
+// ============================
+// Fluxos (UI) / OperaÃ§Ãµes
+// ============================
 void criarAvaliador() {
     Avaliador a;
     cout << "\n=== Bem-vindo ao Cadastro do Avaliador ===\n";
@@ -145,105 +172,45 @@ void criarAvaliador() {
 
     while (true) {
         switch (etapa) {
-
- //  Nome
         case NOME: {
             cout << "Digite o nome (ou 0 para cancelar): ";
-            getline(cin, a.nome);
+            a.nome = getlineSafe();
 
             if (a.nome == "0") {
                 cout << "Cancelando o cadastro e voltando ao menu...\n";
-                return; // não há etapa anterior ao nome
+                return;
             }
             if (a.nome.empty() || a.nome.size() < 3 || contemDigito(a.nome) || !temLetra(a.nome)) {
-                cout << "[Erro] Use apenas letras e no mínimo 3 caracteres.\n";
-                break; // continua na etapa NOME
+                cout << "[Erro] Use apenas letras e no mÃ­nimo 3 caracteres.\n";
+                break; // permanece em NOME
             }
             etapa = EMAIL;
             break;
         }
 
-
-
-// case EMAIL: {
-//    cout << "Digite o e-mail (ou 0 para voltar): ";
-//    getline(cin, a.email);
-//
-//    if (a.email == "0") {
-//        cout << "Voltando para o campo Nome...\n";
-//        etapa = NOME;
-//        break;
-//    }
-//    try {
-//        if (a.email.empty())
-//            throw ExcecaoCampoVazio("O e-mail não pode estar em branco. Informe um e-mail válido.");
-//
-//        size_t posArroba = a.email.find('@');
-//        size_t posPonto  = a.email.find('.', (posArroba == string::npos ? 0 : posArroba + 1));
-//        if (posArroba == string::npos || posPonto == string::npos || posPonto <= posArroba + 1)
-//            throw ExcecaoAutenticacao("Formato de e-mail inválido. Use algo como nome@dominio.com.");
-//
-//        // --- Sugeridor de domínio para evitar typos (ex.: gmai.cm -> gmail.com)
-//        string emailLower = toLowerStr(a.email);
-//        string dominio = (posArroba==string::npos) ? "" : emailLower.substr(posArroba+1);
-//
-//        // Lista de provedores populares ()
-//        const vector<string> dominiosPop = {
-//            "gmail.com","outlook.com","hotmail.com","live.com",
-//            "yahoo.com","icloud.com","uol.com.br","bol.com.br","terra.com.br"
-//        };
-//
-//        string melhor; int melhorDist = INT_MAX;
-//        for (const auto& d: dominiosPop) {
-//            int dist = levDist(dominio, d);
-//            if (dist < melhorDist) { melhorDist = dist; melhor = d; }
-//        }
-//
-//        // Se estiver a 1 ou 2 edições de distância de um popular, sugerimos correção
-//        if (!dominio.empty() && dominio != melhor && melhorDist <= 2) {
-//            cout << " Você quis dizer '" << melhor << "'? (1=Sim corrigir, 2=Usar como digitado, 0=Voltar)\n> ";
-//            string op; getline(cin, op);
-//            if (op == "0") { cout << "Voltando para o campo Nome...\n"; etapa = NOME; break; }
-//            if (op == "1") {
-//                a.email = a.email.substr(0, posArroba+1) + melhor;
-//                cout << "E-mail ajustado para: " << a.email << "\n";
-//            }
-//            // op==2 segue com o que foi digitado
-//        }
-//
-//        if (verificarEmailExistente(a.email))
-//            throw ExcecaoAutenticacao("Este e-mail já está em uso. Tente outro.");
-//
-//        etapa = CPF;
-//    } catch (const exception& e) {
-//        cout << "[Erro de E-mail] " << e.what() << "\nTente novamente.\n";
-//    }
-//    break;
-//}
- 
- 
- 
- //  E-mail
         case EMAIL: {
             cout << "Digite o e-mail (ou 0 para voltar): ";
-            getline(cin, a.email);
+            a.email = getlineSafe();
 
             if (a.email == "0") {
                 cout << "Voltando para o campo Nome...\n";
                 etapa = NOME;
                 break;
             }
+
             try {
                 if (a.email.empty())
-                    throw ExcecaoCampoVazio("O e-mail não pode estar em branco. Informe um e-mail válido.");
+                    throw ExcecaoCampoVazio("O e-mail nÃ£o pode estar em branco. Informe um e-mail vÃ¡lido.");
 
+                // validaÃ§Ã£o simples: nome@dominio.com
                 size_t posArroba = a.email.find('@');
                 size_t posPonto = a.email.find('.', (posArroba == string::npos ? 0 : posArroba + 1));
-                if (posArroba == string::npos || posPonto == string::npos || posPonto <= posArroba + 1)
-                    throw ExcecaoAutenticacao("Formato de e-mail inválido. Use algo como nome@dominio.com.");
+                if (posArroba == string::npos || posPonto == string::npos ||
+                    posPonto <= posArroba + 1 || posPonto >= a.email.size() - 1)
+                    throw ExcecaoAutenticacao("Formato de e-mail invÃ¡lido. Use algo como nome@dominio.com.");
 
                 if (verificarEmailExistente(a.email))
-                    throw ExcecaoAutenticacao("Este e-mail já está em uso. Tente outro.");
+                    throw ExcecaoAutenticacao("Este e-mail jÃ¡ estÃ¡ em uso. Tente outro.");
 
                 etapa = CPF;
             }
@@ -253,25 +220,27 @@ void criarAvaliador() {
             break;
         }
 
-     
-  //  CPF 
         case CPF: {
             cout << "Digite o CPF (com ou sem pontos) (ou 0 para voltar): ";
-            string entradaCPF;
-            getline(cin, entradaCPF);
+            string entradaCPF = getlineSafe();
 
-            if (entradaCPF == "0") { // volta para E-mail
+            if (entradaCPF == "0") {
                 cout << "Voltando para o campo E-mail...\n";
                 etapa = EMAIL;
                 break;
             }
-            a.cpf = entradaCPF;
 
             try {
-                if (!validarCPF(a.cpf))
-                    throw ExcecaoCPFInvalido("CPF inválido. Verifique e tente novamente.");
-                if (verificarCPFExistente(a.cpf))
-                    throw ExcecaoAutenticacao("Este CPF já está cadastrado.");
+                // trabalha SEMPRE com CPF limpo
+                string cpfL = limparCPF(entradaCPF);
+
+                if (!validarCPF(cpfL))
+                    throw ExcecaoCPFInvalido("CPF invÃ¡lido. Verifique e tente novamente.");
+
+                if (verificarCPFExistente(cpfL))
+                    throw ExcecaoAutenticacao("Este CPF jÃ¡ estÃ¡ cadastrado.");
+
+                a.cpf = cpfL;  // guarda limpo para persistir consistente
                 etapa = SENHA;
             }
             catch (const exception& e) {
@@ -280,51 +249,56 @@ void criarAvaliador() {
             break;
         }
 
-
- // Senha 
         case SENHA: {
             cout << "Crie uma senha (ou 0 para voltar): ";
-            string entradaSenha;
-            getline(cin, entradaSenha);
+            string entradaSenha = getlineSafe();
 
-            if (entradaSenha == "0") { // volta para CPF
+            if (entradaSenha == "0") {
                 cout << "Voltando para o campo CPF...\n";
                 etapa = CPF;
                 break;
             }
             if (entradaSenha.empty()) {
-                cout << "[Erro de Senha] A senha não pode estar vazia.\n";
-                break; // permanece na etapa SENHA
+                cout << "[Erro de Senha] A senha nÃ£o pode estar vazia.\n";
+                break; // permanece em SENHA
             }
             a.senha = entradaSenha;
             etapa = CATEGORIA;
             break;
         }
 
- //  Categoria / Área
         case CATEGORIA: {
-            
-            menuCategoriaEArea(a.categoria, a.areaEspecialidade);
-            etapa = SALVAR;
+            // se o usuÃ¡rio escolher 0 no submenu, volte apenas para a etapa anterior (SENHA)
+            if (!menuCategoriaEArea(a.categoria, a.areaEspecialidade)) {
+                cout << "Voltando para a etapa Senha...\n";
+                etapa = SENHA;   // <-- em vez de retornar, volta 1 etapa
+                break;
+            }
+            etapa = SALVAR;      // confirmou categoria e curso
             break;
         }
 
- //  Salvar =====
         case SALVAR: {
-            ofstream file(ARQUIVO_AVALIADOR, ios::app);
-            file << limparCPF(a.cpf) << ";" << a.nome << ";" << a.email << ";" << a.senha
-                << ";" << a.categoria << ";" << a.areaEspecialidade << "\n";
+            std::ofstream file(ARQUIVO_AVALIADOR, ios::app);
+            if (!file.is_open()) {
+                cout << "[Erro] NÃ£o foi possÃ­vel abrir o arquivo '" << ARQUIVO_AVALIADOR << "' para escrita (append).\n";
+                return;
+            }
+            file << limparCPF(a.cpf) << ';'
+                << a.nome << ';'
+                << a.email << ';'
+                << a.senha << ';'
+                << a.categoria << ';'
+                << a.areaEspecialidade << '\n';
             file.close();
-            cout << "\n Avaliador cadastrado com sucesso!\n";
+
+            cout << "\nAvaliador cadastrado com sucesso!\n";
             return;
         }
-
         } // switch
     } // while
 }
 
-
-//  Listagem
 
 void listarAvaliadores() {
     auto lista = carregarAvaliadores();
@@ -339,18 +313,14 @@ void listarAvaliadores() {
             << "\nNome: " << a.nome
             << "\nE-mail: " << a.email
             << "\nCategoria: " << a.categoria
-            << "\nÁrea: " << a.areaEspecialidade << "\n";
+            << "\nÃrea: " << a.areaEspecialidade << "\n";
     }
 }
 
-
-//  Atualização de Avaliador (menu interativo)
-
 void atualizarAvaliador() {
     auto lista = carregarAvaliadores();
-    string cpf;
     cout << "\n=== Atualizar Avaliador ===\nCPF: ";
-    getline(cin, cpf);
+    string cpf = getlineSafe();
 
     string cpfDigitado = limparCPF(cpf);
     bool achou = false;
@@ -361,44 +331,76 @@ void atualizarAvaliador() {
             int opcao;
 
             do {
-                cout << "\nO que deseja atualizar?\n";
-                cout << "1. E-mail\n2. Senha\n3. Categoria e Área\n0. Voltar\nEscolha: ";
-                cin >> opcao;
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\nO que deseja atualizar?\n"
+                    << "1. E-mail\n2. Senha\n3. Categoria e Ãrea\n0. Voltar\nEscolha: ";
+                if (!(cin >> opcao)) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                    opcao = 0;
+                }
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 
                 switch (opcao) {
                 case 1: {
-                    string novoEmail;
                     cout << "Novo e-mail: ";
-                    getline(cin, novoEmail);
+                    string novoEmail = getlineSafe();
 
-                    if (verificarEmailExistente(novoEmail))
-                        cout << "E-mail já cadastrado!\n";
-                    else if (!novoEmail.empty()) {
-                        a.email = novoEmail;
-                        cout << "E-mail atualizado!\n";
+                    // vazio?
+                    if (novoEmail.empty()) {
+                        cout << "[Erro] O e-mail nÃ£o pode ficar em branco.\n";
+                        break;
                     }
+
+                    // nÃ£o mudou?
+                    if (novoEmail == a.email) {
+                        cout << "E-mail nÃ£o mudou.\n";
+                        break;
+                    }
+
+                    // formato vÃ¡lido?
+                    if (!emailValido(novoEmail)) {
+                        cout << "[Erro] Formato invÃ¡lido. Use algo como nome@dominio.com.\n";
+                        break;
+                    }
+
+                    // duplicidade (ignora o prÃ³prio CPF)
+                    bool emUsoPorOutro = false;
+                    for (const auto& outro : lista) {
+                        if (limparCPF(outro.cpf) == limparCPF(a.cpf)) continue; // Ã© o mesmo registro
+                        if (outro.email == novoEmail) { emUsoPorOutro = true; break; }
+                    }
+                    if (emUsoPorOutro) {
+                        cout << "E-mail jÃ¡ cadastrado por outro usuÃ¡rio!\n";
+                        break;
+                    }
+
+                    // OK, atualiza
+                    a.email = novoEmail;
+                    cout << "E-mail atualizado!\n";
                     break;
                 }
                 case 2: {
-                    string novaSenha;
                     cout << "Nova senha: ";
-                    getline(cin, novaSenha);
+                    string novaSenha = getlineSafe();
                     if (!novaSenha.empty()) {
                         a.senha = novaSenha;
                         cout << "Senha atualizada!\n";
                     }
                     break;
                 }
-                case 3:
-                    menuCategoriaEArea(a.categoria, a.areaEspecialidade);
-                    cout << "Categoria e área atualizadas!\n";
+                case 3: {
+                    if (!menuCategoriaEArea(a.categoria, a.areaEspecialidade)) {
+                        cout << "Voltando...\n";
+                        break; // nÃ£o imprime 'atualizadas' se o usuÃ¡rio voltou
+                    }
+                    cout << "Categoria e Ã¡rea atualizadas!\n";
                     break;
+                } // <-- ESSA CHAVE FALTAVA
                 case 0:
                     cout << "Voltando...\n";
                     break;
                 default:
-                    cout << "Opção inválida.\n";
+                    cout << "OpÃ§Ã£o invÃ¡lida.\n";
                 }
             } while (opcao != 0);
             break;
@@ -407,21 +409,17 @@ void atualizarAvaliador() {
 
     if (achou) {
         salvarAvaliadores(lista);
-        cout << "\n Avaliador atualizado com sucesso!\n";
+        cout << "\nAvaliador atualizado com sucesso!\n";
     }
     else {
-        cout << "\n CPF não encontrado.\n";
+        cout << "\nCPF nÃ£o encontrado.\n";
     }
 }
 
-
-//  Exclusão com Confirmação
-
 void deletarAvaliador() {
     auto lista = carregarAvaliadores();
-    string cpf;
     cout << "\n=== Deletar Avaliador ===\nCPF: ";
-    getline(cin, cpf);
+    string cpf = getlineSafe();
 
     string cpfDigitado = limparCPF(cpf);
     vector<Avaliador> novaLista;
@@ -439,59 +437,56 @@ void deletarAvaliador() {
     }
 
     if (!achou) {
-        cout << "\n CPF não encontrado.\n";
+        cout << "\nCPF nÃ£o encontrado.\n";
         return;
     }
 
     cout << "\nAvaliador encontrado:\n";
-    cout << "Nome: " << alvo.nome << "\nÁrea: " << alvo.areaEspecialidade << "\n";
-    cout << "\nTem certeza que deseja excluir?\n1. Sim\n2. Não\nEscolha: ";
+    cout << "Nome: " << alvo.nome << "\nÃrea: " << alvo.areaEspecialidade << "\n";
+    cout << "\nTem certeza que deseja excluir?\n1. Sim\n2. NÃ£o\nEscolha: ";
 
     int op;
-    cin >> op;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    if (!(cin >> op)) {
+        cin.clear();
+        op = 2;
+    }
+    cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
 
     if (op == 1) {
         salvarAvaliadores(novaLista);
-        cout << "\n Avaliador removido com sucesso!\n";
+        cout << "\nAvaliador removido com sucesso!\n";
     }
     else {
-        cout << "\nOperação cancelada.\n";
+        cout << "\nOperaÃ§Ã£o cancelada.\n";
     }
 }
 
-
-//  Autenticação (CPF e SENHA)
-
+// ============================
+// AutenticaÃ§Ã£o / Login
+// ============================
 bool autenticarAvaliador(const string& cpf, const string& senha) {
     auto lista = carregarAvaliadores();
     string cpfDigitado = limparCPF(cpf);
 
     for (const auto& a : lista) {
         if (limparCPF(a.cpf) == cpfDigitado) {
-            if (a.senha == senha)
-                return true;
-            else
-                throw ExcecaoSenhaIncorreta("Senha incorreta!");
+            if (a.senha == senha) return true;
+            throw ExcecaoSenhaIncorreta("Senha incorreta!");
         }
     }
-    throw ExcecaoAutenticacao("CPF não encontrado!");
+    throw ExcecaoAutenticacao("CPF nÃ£o encontrado!");
 }
 
-
-//  Login pelo CPF
-
 void loginAvaliador() {
-    string cpf, senha;
     cout << "\n=== Login de Avaliador ===\n";
     cout << "CPF: ";
-    getline(cin, cpf);
+    string cpf = getlineSafe();
     cout << "Senha: ";
-    getline(cin, senha);
+    string senha = getlineSafe();
 
     try {
         if (autenticarAvaliador(cpf, senha))
-            cout << "\n? Login realizado com sucesso!\n";
+            cout << "\nâœ” Login realizado com sucesso!\n";
     }
     catch (const exception& e) {
         cout << "[Erro de Login] " << e.what() << "\n";
