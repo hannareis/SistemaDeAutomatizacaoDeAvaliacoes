@@ -124,9 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ID.hpp" />
-    <ClInclude Include="MenuAvaliadores.hpp" />
+    <ClInclude Include="Menus.hpp" />
     <ClInclude Include="MenuPrincipal.hpp" />
-    <ClInclude Include="MenuProjetos.hpp" />
     <ClInclude Include="organizadores.hpp" />
     <ClInclude Include="Projetos.hpp" />
     <ClInclude Include="Tratamentoexcecao.hpp" />

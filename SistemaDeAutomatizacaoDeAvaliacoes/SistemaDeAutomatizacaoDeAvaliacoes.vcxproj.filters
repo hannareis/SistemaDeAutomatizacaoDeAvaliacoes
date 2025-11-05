@@ -27,10 +27,7 @@
     <ClInclude Include="MenuPrincipal.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="MenuAvaliadores.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuProjetos.hpp">
+    <ClInclude Include="Menus.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="organizadores.hpp">

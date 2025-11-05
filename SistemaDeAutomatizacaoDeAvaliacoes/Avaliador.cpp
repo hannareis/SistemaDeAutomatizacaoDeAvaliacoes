@@ -1,6 +1,6 @@
 ﻿#include "Avaliador.hpp"
 #include "TratamentoExcecao.hpp"
-#include "MenuAvaliadores.hpp"
+#include "Menus.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -395,7 +395,8 @@ void atualizarAvaliador() {
                     }
                     cout << "Categoria e área atualizadas!\n";
                     break;
-                } // <-- ESSA CHAVE FALTAVA
+                } 
+
                 case 0:
                     cout << "Voltando...\n";
                     break;
