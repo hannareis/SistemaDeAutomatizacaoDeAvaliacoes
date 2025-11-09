@@ -4,6 +4,7 @@
 #include "MenuPrincipal.hpp"
 #include "Menus.hpp"      // para menus de avaliadores e projetos
 #include "Avaliador.hpp"  // se usar login de avaliador
+#include "MenuNotas.hpp"
 
 using namespace std;
 
@@ -38,6 +39,7 @@ void menuPrincipal() {
         cout << "1. Gerenciar Avaliadores (Admin)\n";
         cout << "2. Gerenciar Projetos (Admin)\n";
         cout << "3. Banca de Notas (Avaliador)\n";
+        cout << "4. Avaliar Projetos (Avaliador)\n";
         cout << "0. Sair\n";
         cout << "Escolha: ";
 
@@ -53,6 +55,7 @@ void menuPrincipal() {
         case 1: menuAvaliadores(); break;
         case 2: menuProjetos();    break;
         case 3: loginAvaliador();  break;
+		case 4: MenuNotas();       break;
         case 0: cout << "\nEncerrando o sistema...\n"; break;
         default: cout << "Opção inválida. Tente novamente.\n";
         }

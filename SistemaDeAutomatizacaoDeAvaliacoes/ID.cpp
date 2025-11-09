@@ -8,20 +8,33 @@ using namespace std;
 
 const string ARQUIVO = "projetos.txt";
 //GERSON FEZ A FUNÇAO DE GERAR ID AUTOMATICO
-int gerarNovoID() {
-    ifstream file(ARQUIVO);
+int encontrarMaiorID(ifstream& file, int maiorID = 0) {
     string linha;
-    int maiorID = 0;
-
-    while (getline(file, linha)) {
-        stringstream ss(linha);
-        string campo;
-        getline(ss, campo, ';');
-        int id = stoi(campo);
-        if (id > maiorID) {
-            maiorID = id;
-        }
+    if (!getline(file, linha)) {
+        return maiorID;
     }
 
+    stringstream ss(linha);
+    string campo;
+    getline(ss, campo, ';');
+    int id = stoi(campo);
+
+    if (id > maiorID) {
+        maiorID = id;
+    }
+
+    return encontrarMaiorID(file, maiorID);
+}
+
+// Função principal
+int gerarNovoID() {
+    ifstream file(ARQUIVO);
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo." << endl;
+        return 1;
+    }
+
+    int maiorID = encontrarMaiorID(file);
+    file.close();
     return maiorID + 1;
 }
