@@ -123,7 +123,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Ficha.hpp" />
     <ClInclude Include="ID.hpp" />
+    <ClInclude Include="MenuFicha.hpp" />
     <ClInclude Include="MenuNotas.hpp" />
     <ClInclude Include="Menus.hpp" />
     <ClInclude Include="MenuPrincipal.hpp" />
@@ -134,9 +136,11 @@
   <ItemGroup>
     <ClCompile Include="Avaliador.cpp" />
     <ClCompile Include="Avaliador.hpp" />
+    <ClCompile Include="Ficha.cpp" />
     <ClCompile Include="ID.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuAvaliadores.cpp" />
+    <ClCompile Include="MenuFicha.cpp" />
     <ClCompile Include="MenuNotas.cpp" />
     <ClCompile Include="MenuPrincipal.cpp" />
     <ClCompile Include="MenuProjetos.cpp" />
@@ -144,6 +148,7 @@
     <ClCompile Include="Notas.hpp" />
     <ClCompile Include="organizadores.cpp" />
     <ClCompile Include="Projetos.cpp" />
+    <ClCompile Include="util.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,13 @@
 #ifndef NOTAS_HPP
 #define NOTAS_HPP
-
+#include <ctime>
 #include <string>
 using namespace std;
 
 struct Notas {
-    int id = 0;
+    string data;
     double nota = 0.0;
-	double notasCriterio[5] = { 0.0 };
+	string tipo_avaliacao;
     string nome_avaliador;
     string projeto;
 };

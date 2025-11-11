@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Arquivos de Origem\Avaliador">
+      <UniqueIdentifier>{7d91f1f3-4184-4668-ad5e-19f9e2022cc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\Ficha">
+      <UniqueIdentifier>{ce2b19f4-b4b0-4954-803a-e176a8bf6fdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Projetos.hpp">
@@ -36,6 +42,12 @@
     <ClInclude Include="MenuNotas.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="Ficha.hpp">
+      <Filter>Arquivos de Origem\Ficha</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuFicha.hpp">
+      <Filter>Arquivos de Origem\Ficha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Projetos.cpp">
@@ -50,19 +62,10 @@
     <ClCompile Include="Notas.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Avaliador.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClCompile>
-    <ClCompile Include="Avaliador.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="ID.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="MenuPrincipal.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuAvaliadores.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
     <ClCompile Include="MenuProjetos.cpp">
@@ -73,6 +76,24 @@
     </ClCompile>
     <ClCompile Include="MenuNotas.cpp">
       <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Avaliador.cpp">
+      <Filter>Arquivos de Origem\Avaliador</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuAvaliadores.cpp">
+      <Filter>Arquivos de Origem\Avaliador</Filter>
+    </ClCompile>
+    <ClCompile Include="Avaliador.hpp">
+      <Filter>Arquivos de Origem\Avaliador</Filter>
+    </ClCompile>
+    <ClCompile Include="Ficha.cpp">
+      <Filter>Arquivos de Origem\Ficha</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuFicha.cpp">
+      <Filter>Arquivos de Origem\Ficha</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #include <limits>
 #include "MenuNotas.hpp"
 #include "Projetos.hpp"
-#include "../SistemaDeAutomatizacaoDeAvaliacoes/Notas.hpp"
+#include "Notas.hpp"
 
 using namespace std;
 
