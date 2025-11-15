@@ -46,24 +46,29 @@ void salvarNotas(const vector<Notas>& lista) {
 }
 
 // --- Calcula a média de 5 critérios ---
-double mediaNotas(double notas[], int indiceNota) {
-    double soma = 0.0;
-    for (int i = 0; i < indiceNota; i++) {
-        soma += notas[i];
+double mediaNotas(double notas[], double pesos[], int quantidade) {
+    double somaPonderada = 0.0;
+    double somaPesos = 0.0;
+
+    for (int i = 0; i < quantidade; i++) {
+        somaPonderada += notas[i] * pesos[i];
+        somaPesos += pesos[i];
     }
 
-    double media = (indiceNota > 0) ? soma / indiceNota : 0;
+    double media = (somaPesos > 0) ? somaPonderada / somaPesos : 0.0;
 
-    cout << "\n Todas as notas foram registradas!\n";
-    cout << "Média final: " << media << "\n";
+    cout << "\nTodas as notas foram registradas!\n";
+    cout << "Média final (ponderada): " << media << "\n";
+
     return media;
-
 }
-void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
+
+
+double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
     Ficha* encontrada = buscarFichaPorTipo(s, tipoAvaliacao);
 
     if (encontrada != nullptr) {
-        cout << "\n📋 Ficha encontrada: " << encontrada->tipoFicha << "\n";
+        cout << "\n Ficha encontrada: " << encontrada->tipoFicha << "\n";
 
         // número total de quesitos (vamos descobrir percorrendo tudo)
         int totalQuesitos = 0;
@@ -73,6 +78,7 @@ void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
 
         // vetor auxiliar de notas (tamanho total dos quesitos)
         double* notas = new double[totalQuesitos];
+		double * pesos = new double[totalQuesitos];
         int indiceNota = 0;
 
         // percorrer as avaliações e coletar notas
@@ -84,8 +90,10 @@ void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
             cout << "  Avaliação: " << a.tipo << "\n";
 
             for (int k = 0; k < a.qtdQuesitos; k++) {
+                pesos[indiceNota] = a.quesitos->peso;
+
                 const Quesito& q = a.quesitos[k];
-                cout << "    - " << q.nome << " | Nota Máx: " << q.notaMax << "\n";
+                cout << "    - " << q.nome << " | Nota Máx: " << q.notaMax << "| Peso: "<<q.peso << "\n"              ;
                 cout << "      Digite a nota: ";
 
                 cin >> notas[indiceNota];
@@ -93,7 +101,7 @@ void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
                 while (cin.fail() || notas[indiceNota] < 0 || notas[indiceNota] > q.notaMax) {
                     cin.clear();
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                    cout << "      ⚠️ Valor inválido! Digite novamente: ";
+                    cout << " Valor inválido! Digite novamente: ";
                     cin >> notas[indiceNota];
                 }
 
@@ -102,9 +110,8 @@ void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
         }
 
 
-        // calcula média
-        mediaNotas(notas, indiceNota);
-//levar em consideracao que pode ser uma media ponderada
+        
+    return mediaNotas(notas,pesos,indiceNota);
   //mostrar os pesos se tiver
         // associar a um projeto
         // guardar o cpf do avaliador quando ele entrar
@@ -114,6 +121,7 @@ void registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
     }
     else {
         cout << "\n Nenhuma ficha encontrada com esse tipo.\n";
+		return 0.0;
     }
 }
 
@@ -128,27 +136,42 @@ void criarNotas() {
     cout << "Nome do avaliador: ";
     getline(cin, n.nome_avaliador);
 
-    cout << "Projeto avaliado: ";
-    getline(cin, n.projeto);
+	int index = -1;
+    do {
+        cout << "Projeto avaliado: ";
+        getline(cin, n.projeto);
 
-    cout << "Tipo de avaliacao (ex: Parcial, Final, etc.): ";
-    getline(cin, n.tipo_avaliacao);
+        if (projetoExiste(n.projeto)) {
+            cout << "Tipo de avaliacao (ex: Parcial, Final, etc.): ";
+            getline(cin, n.tipo_avaliacao);
+            SistemaFichas s;
+            carregarFichas(s);
+          n.nota =  registrarNotas(s, n.tipo_avaliacao);
 
-    SistemaFichas s;
-    carregarFichas(s);
+            ofstream file(ARQUIVO, ios::app);
+            file << n.data << ";"
+                << n.nota << ";"
+                << n.tipo_avaliacao << ";"
+                << n.nome_avaliador << ";"
+                << n.projeto << "\n";
+            file.close();
 
-    registrarNotas(s, n.tipo_avaliacao);
+            cout << "Nota registrada com sucesso em " << n.data << "!\n";
+            break;
+        }
+        else {
+            cout << "Projeto nao encontrado.\n";
+            cout << "Deseja tentar novamente? (1 - Sim / 0 - Nao): ";
+            cin >> index;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpar buffer
 
+            if (index == 0) {
+                cout << "Operacao cancelada pelo usuario.\n";
+                break;
+            }
+        }
 
-    ofstream file(ARQUIVO, ios::app);
-    file << n.data << ";"
-        << n.nota << ";"
-        << n.tipo_avaliacao << ";"
-        << n.nome_avaliador << ";"
-        << n.projeto << "\n";
-    file.close();
-
-    cout << "Nota registrada com sucesso em " << n.data << "!\n";
+    } while (!projetoExiste(n.projeto) && index != 0);   
 }
 
 

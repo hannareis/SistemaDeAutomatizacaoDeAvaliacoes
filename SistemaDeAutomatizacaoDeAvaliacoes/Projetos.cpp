@@ -123,3 +123,12 @@ void deletarProjeto() {
         cout << "❌ Projeto não encontrado.\n";
     }
 }
+bool projetoExiste(const string& nome) {
+    vector<Projeto> lista = carregarProjetos();
+    for (auto& p : lista) {
+        if (p.nome == nome) {
+            return true;
+        }
+    }
+    return false;
+}

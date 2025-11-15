@@ -19,11 +19,11 @@
     <Filter Include="Arquivos de Origem\Ficha">
       <UniqueIdentifier>{ce2b19f4-b4b0-4954-803a-e176a8bf6fdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Origem\Projeto">
+      <UniqueIdentifier>{f628639b-65d3-46c3-8789-49e66029e211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Projetos.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="ID.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -48,11 +48,11 @@
     <ClInclude Include="MenuFicha.hpp">
       <Filter>Arquivos de Origem\Ficha</Filter>
     </ClInclude>
+    <ClInclude Include="Projetos.hpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Projetos.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
@@ -66,9 +66,6 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="MenuPrincipal.cpp">
-      <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuProjetos.cpp">
       <Filter>Arquivos de Recurso</Filter>
     </ClCompile>
     <ClCompile Include="organizadores.cpp">
@@ -94,6 +91,12 @@
     </ClCompile>
     <ClCompile Include="MenuFicha.cpp">
       <Filter>Arquivos de Origem\Ficha</Filter>
+    </ClCompile>
+    <ClCompile Include="Projetos.cpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuProjetos.cpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
