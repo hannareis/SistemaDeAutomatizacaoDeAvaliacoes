@@ -1,8 +1,4 @@
-﻿// ===============================================
-// SISTEMA DE PROJETOS
-// ===============================================
-
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -10,6 +6,13 @@
 #include "Projetos.hpp"
 #include "Ficha.hpp"
 #include "ID.hpp"
+
+
+// ===============================================
+// SISTEMA DE PROJETOS
+// ===============================================
+
+
 
 using namespace std;
 
@@ -312,4 +315,3 @@ void deletarProjeto() {
     salvarProjetos(novaLista);
     cout << "Removido!\n";
 }
-

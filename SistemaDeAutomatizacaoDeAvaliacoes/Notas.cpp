@@ -1,11 +1,11 @@
-﻿#include <iostream>
-#include <fstream>
+﻿#include <fstream>
 #include <sstream>
 #include <vector>
 #include <ctime>   // para pegar a data atual
 #include "Notas.hpp"
 #include "ID.hpp"
 #include "Ficha.hpp"
+#include "Projetos.hpp"
 using namespace std;
 
 const string ARQUIVO = "notas.txt"; // usa o caminho local do projeto	
@@ -65,7 +65,7 @@ double mediaNotas(double notas[], double pesos[], int quantidade) {
 
 
 double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
-	cout << "\n=== Registro de Notas para Ficha: " << tipoAvaliacao << " ===\n";
+    cout << "\n=== Registro de Notas para Ficha: " << tipoAvaliacao << " ===\n";
 
     Ficha* encontrada = buscarFichaPorTipo(s, tipoAvaliacao);
 
@@ -80,13 +80,13 @@ double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
 
         // vetor auxiliar de notas (tamanho total dos quesitos)
         double* notas = new double[totalQuesitos];
-		double * pesos = new double[totalQuesitos];
+        double* pesos = new double[totalQuesitos];
         int indiceNota = 0;
 
         // percorrer as avaliações e coletar notas
         for (int j = 0; j < encontrada->qtdAvaliacoes; j++) {
             const Avaliacao& a = encontrada->avaliacoes[j];
-            
+
             // se quiser filtrar
 
             cout << "  Avaliação: " << a.tipo << "\n";
@@ -95,7 +95,7 @@ double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
                 pesos[indiceNota] = a.quesitos->peso;
 
                 const Quesito& q = a.quesitos[k];
-                cout << "    - " << q.nome << " | Nota Máx: " << q.notaMax << "| Peso: "<<q.peso << "\n"              ;
+                cout << "    - " << q.nome << " | Nota Máx: " << q.notaMax << "| Peso: " << q.peso << "\n";
                 cout << "      Digite a nota: ";
 
                 cin >> notas[indiceNota];
@@ -112,25 +112,25 @@ double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
         }
 
 
-        
-    return mediaNotas(notas,pesos,indiceNota);
-  //mostrar os pesos se tiver
-        // associar a um projeto
-        // guardar o cpf do avaliador quando ele entrar
-        //organizar o fluxo inteiro
-        //organizar as pastas
+
+        return mediaNotas(notas, pesos, indiceNota);
+        //mostrar os pesos se tiver
+              // associar a um projeto
+              // guardar o cpf do avaliador quando ele entrar
+              //organizar o fluxo inteiro
+              //organizar as pastas
 
     }
     else {
         cout << "\n Nenhuma ficha encontrada com esse tipo.\n";
-		return 0.0;
+        return 0.0;
     }
 }
 
 // --- Cria e grava nova avaliação ---
 void criarNotas() {
     Notas n;
-  
+
 
     n.data = "24/12/2025";  // pega a data atual
     n.nota = 0.0;
@@ -140,9 +140,9 @@ void criarNotas() {
 
 
 
-   
 
-	int index = -1;
+
+    int index = -1;
     do {
         cout << "Projeto avaliado (0 para cancelar): ";
         getline(cin, n.projeto);
@@ -190,11 +190,11 @@ void criarNotas() {
         // Carrega o conjunto de fichas do sistema
         SistemaFichas s;
         carregarFichas(s);
-		cout << "Carregadas " << s.qtdFichas << " fichas do sistema.\n";
+        cout << "Carregadas " << s.qtdFichas << " fichas do sistema.\n";
 
         n.tipo_avaliacao = p.tipoAvaliacao;
 
-		cout << "tipo de avaliacao: " << n.tipo_avaliacao << "\n";
+        cout << "tipo de avaliacao: " << n.tipo_avaliacao << "\n";
         // 📌 Somente aqui chamamos a ficha — DEPOIS da verificação!
         n.nota = registrarNotas(s, p.tipoAvaliacao);
 

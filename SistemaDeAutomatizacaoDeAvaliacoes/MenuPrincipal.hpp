@@ -1,10 +1,7 @@
 #ifndef MENU_PRINCIPAL_HPP
 #define MENU_PRINCIPAL_HPP
 
-// Login master do admin
-bool autenticarOrganizador();
-
-// Menu principal do sistema
+// Ponto de entrada do sistema (faz login e manda para o menu certo)
 void menuPrincipal();
 
 #endif

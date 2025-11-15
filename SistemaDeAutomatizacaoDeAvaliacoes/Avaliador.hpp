@@ -39,8 +39,8 @@ void atualizarAvaliador();
 /// Deleta um avaliador (confirma em console).
 void deletarAvaliador();
 
-/// Fluxo de login (CPF + senha).
-void loginAvaliador();
+/// Fluxo de login (CPF + senha). Retorna true se autenticou.
+[[nodiscard]] bool loginAvaliador();
 
 // ===================================
 // Auxiliares / Validação 
@@ -60,6 +60,9 @@ void loginAvaliador();
 
 /// Remove pontuação do CPF.
 [[nodiscard]] std::string limparCPF(const std::string& cpf);
+
+/// Retorna ponteiro para o avaliador atualmente logado (ou nullptr se ninguém estiver logado).
+[[nodiscard]] const Avaliador* obterAvaliadorLogado();
 
 // ===================================
 // Persistência 

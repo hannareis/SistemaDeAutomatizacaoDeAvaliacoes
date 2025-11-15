@@ -129,7 +129,6 @@
     <ClInclude Include="MenuNotas.hpp" />
     <ClInclude Include="Menus.hpp" />
     <ClInclude Include="MenuPrincipal.hpp" />
-    <ClInclude Include="organizadores.hpp" />
     <ClInclude Include="Projetos.hpp" />
     <ClInclude Include="Tratamentoexcecao.hpp" />
   </ItemGroup>
@@ -146,7 +145,6 @@
     <ClCompile Include="MenuProjetos.cpp" />
     <ClCompile Include="Notas.cpp" />
     <ClCompile Include="Notas.hpp" />
-    <ClCompile Include="organizadores.cpp" />
     <ClCompile Include="Projetos.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
