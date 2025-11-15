@@ -61,6 +61,9 @@ void deletarAvaliador();
 /// Remove pontuação do CPF.
 [[nodiscard]] std::string limparCPF(const std::string& cpf);
 
+/// Retorna ponteiro para o avaliador atualmente logado (ou nullptr se ninguém estiver logado).
+[[nodiscard]] const Avaliador* obterAvaliadorLogado();
+
 // ===================================
 // Persistência 
 // ===================================
@@ -70,5 +73,6 @@ void deletarAvaliador();
 
 /// Salva a lista completa (sobrescreve o arquivo).
 void salvarAvaliadores(const std::vector<Avaliador>& lista);
+
 
 #endif // AVALIADOR_HPP

@@ -45,7 +45,7 @@ void criarFicha(SistemaFichas& s) {
 
     // Verifica se já existe uma ficha com o mesmo tipo
     if (tipoExiste(s, nova->tipoFicha)) {
-        cout << "\n❌ Já existe uma ficha com esse tipo! Operação cancelada.\n";
+        cout << "\n Já existe uma ficha com esse tipo! Operação cancelada.\n";
         delete nova;
         return;
     }

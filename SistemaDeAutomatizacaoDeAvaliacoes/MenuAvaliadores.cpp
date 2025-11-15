@@ -2,7 +2,7 @@
 #include <limits>
 #include "Menus.hpp"
 #include "Avaliador.hpp"
-#include "TratamentoExcecao.hpp"
+#include "Tratamentoexcecao.hpp"
 
 using std::cin;
 using std::cout;

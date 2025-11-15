@@ -24,8 +24,10 @@ struct Projeto {
     string responsavel;
     string categoria;
     string area;
-    vector<string> avaliadoresCPF; // exatamente 3 avaliadores
+    string tipoFicha;              // tipo de ficha técnica associada (ex: "TCC")
+    vector<string> avaliadoresCPF; // exatamente 3 avaliadores (opcional, não usamos ainda)
 };
+
 
 
 // Funções principais (CRUD)

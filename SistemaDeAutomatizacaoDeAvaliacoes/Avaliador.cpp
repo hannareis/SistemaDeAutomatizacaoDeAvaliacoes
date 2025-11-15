@@ -25,6 +25,14 @@ using std::vector;
 // Caminho do arquivo (mantido)
 const string ARQUIVO_AVALIADOR = "avaliadores.csv";
 
+// Estado de sessão do avaliador logado
+static Avaliador g_avaliadorLogado;
+static bool g_temAvaliadorLogado = false;
+
+const Avaliador* obterAvaliadorLogado() {
+    return g_temAvaliadorLogado ? &g_avaliadorLogado : nullptr;
+}
+
 
 // ============================
 // Helpers "privados" do arquivo
@@ -97,6 +105,9 @@ string limparCPF(const string& cpf) {
         if (std::isdigit(static_cast<unsigned char>(c))) apenasDigitos += c;
     return apenasDigitos;
 }
+
+/// Retorna ponteiro para o avaliador atualmente logado (ou nullptr se ninguém estiver logado).
+const Avaliador* obterAvaliadorLogado();
 
 // ============================
 // Persistência (arquivo)
@@ -471,12 +482,17 @@ bool autenticarAvaliador(const string& cpf, const string& senha) {
 
     for (const auto& a : lista) {
         if (limparCPF(a.cpf) == cpfDigitado) {
-            if (a.senha == senha) return true;
+            if (a.senha == senha) {
+                // guarda avaliador logado na sessão
+                g_avaliadorLogado = a;
+                g_temAvaliadorLogado = true;
+                return true;
+            }
             throw ExcecaoSenhaIncorreta("Senha incorreta!");
         }
     }
     throw ExcecaoAutenticacao("CPF não encontrado!");
-}
+}   
 
 bool loginAvaliador() {
     cout << "\n=== Login de Avaliador ===\n";
@@ -487,7 +503,7 @@ bool loginAvaliador() {
 
     try {
         if (autenticarAvaliador(cpf, senha)) {
-            cout << "\n✔ Login realizado com sucesso!\n";
+            cout << "\n Login realizado com sucesso!\n";
             return true;
         }
     }
