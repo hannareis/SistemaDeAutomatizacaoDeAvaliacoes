@@ -11,12 +11,20 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
 
     cout << "\n=== Sistema de Automação de Avaliações ===\n";
-    if (!autenticarOrganizador()) {
+	Token token = autenticarUser();
+    if (!token.sucesso) {
         cout << "\nAcesso negado. Encerrando o sistema...\n";
         return 0;
     }
+    else {
+        if (token.tipo=="admin") {
+			cout << "\nAcesso concedido. Bem-vindo ao sistema!\n";
+            menuPrincipal();
+        }
+    }
+
     MenuNotas();
-    menuPrincipal();
+   
     MenuFicha();
     return 0;
 }
