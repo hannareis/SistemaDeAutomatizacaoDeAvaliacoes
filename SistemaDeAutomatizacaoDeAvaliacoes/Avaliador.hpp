@@ -74,5 +74,6 @@ void deletarAvaliador();
 /// Salva a lista completa (sobrescreve o arquivo).
 void salvarAvaliadores(const std::vector<Avaliador>& lista);
 
+[[nodiscard]] bool verificarSenhaExistente(const std::string& senha);
 
 #endif // AVALIADOR_HPP

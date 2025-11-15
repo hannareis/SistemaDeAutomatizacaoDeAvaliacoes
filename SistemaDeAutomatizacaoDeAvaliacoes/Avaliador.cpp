@@ -160,9 +160,22 @@ static bool verificarRecursivo(const vector<Avaliador>& lista, const string& cpf
     return verificarRecursivo(lista, cpf, i + 1);
 }
 
+static bool verificarRecursivoSenha(const vector<Avaliador>& lista, const string& senha, int i) {
+    if (i >= static_cast<int>(lista.size())) return false;
+    const string cpfLista = limparCPF(lista[i].senha);
+    const string cpfDigitado = limparCPF(senha);
+    if (cpfLista == cpfDigitado) return true;
+    return verificarRecursivoSenha(lista, senha, i + 1);
+}
+
 bool verificarCPFExistente(const string& cpf) {
     auto lista = carregarAvaliadores();
     return verificarRecursivo(lista, cpf, 0);
+}
+
+bool verificarSenhaExistente(const std::string& senha) {
+    auto lista = carregarAvaliadores();
+    return verificarRecursivo(lista, senha, 0);
 }
 
 bool verificarEmailExistente(const string& email) {

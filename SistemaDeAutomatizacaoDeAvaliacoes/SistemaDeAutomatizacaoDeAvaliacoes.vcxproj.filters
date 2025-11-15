@@ -19,18 +19,21 @@
     <Filter Include="Arquivos de Origem\Ficha">
       <UniqueIdentifier>{ce2b19f4-b4b0-4954-803a-e176a8bf6fdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Origem\Projeto">
+      <UniqueIdentifier>{f628639b-65d3-46c3-8789-49e66029e211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\Notas">
+      <UniqueIdentifier>{f345feff-f208-4e88-9f8d-34b80c17e515}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\MenuPincipal">
+      <UniqueIdentifier>{a26a24df-3966-46e1-b80a-2d0507834794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Recurso\ID">
+      <UniqueIdentifier>{91efadaa-3d5e-4c59-8905-bdd728120c57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Projetos.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="ID.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="Tratamentoexcecao.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuPrincipal.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="Menus.hpp">
@@ -45,11 +48,20 @@
     <ClInclude Include="MenuFicha.hpp">
       <Filter>Arquivos de Origem\Ficha</Filter>
     </ClInclude>
+    <ClInclude Include="Projetos.hpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuNotas.hpp">
+      <Filter>Arquivos de Origem\Notas</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuPrincipal.hpp">
+      <Filter>Arquivos de Origem\MenuPincipal</Filter>
+    </ClInclude>
+    <ClInclude Include="ID.hpp">
+      <Filter>Arquivos de Recurso\ID</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Projetos.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
@@ -88,6 +100,30 @@
     </ClCompile>
     <ClCompile Include="MenuFicha.cpp">
       <Filter>Arquivos de Origem\Ficha</Filter>
+    </ClCompile>
+    <ClCompile Include="Projetos.cpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuProjetos.cpp">
+      <Filter>Arquivos de Origem\Projeto</Filter>
+    </ClCompile>
+    <ClCompile Include="Notas.cpp">
+      <Filter>Arquivos de Origem\Notas</Filter>
+    </ClCompile>
+    <ClCompile Include="Notas.hpp">
+      <Filter>Arquivos de Origem\Notas</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuNotas.cpp">
+      <Filter>Arquivos de Origem\Notas</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuPrincipal.cpp">
+      <Filter>Arquivos de Origem\MenuPincipal</Filter>
+    </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>Arquivos de Recurso</Filter>
+    </ClCompile>
+    <ClCompile Include="ID.cpp">
+      <Filter>Arquivos de Recurso\ID</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

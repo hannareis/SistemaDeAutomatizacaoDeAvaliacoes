@@ -3,233 +3,315 @@
 #include <sstream>
 #include <vector>
 #include <limits>
-
 #include "Projetos.hpp"
+#include "Ficha.hpp"
 #include "ID.hpp"
-#include "Menus.hpp"
+
+
+// ===============================================
+// SISTEMA DE PROJETOS
+// ===============================================
+
+
 
 using namespace std;
 
-static const string ARQUIVO_PROJETOS = "projetos.txt"; // armazenamento interno (texto com ;)
+const string ARQUIVO = "projetos.txt";
 
+// ===============================================
+// CARREGAR PROJETOS
+// ===============================================
 vector<Projeto> carregarProjetos() {
     vector<Projeto> lista;
-    ifstream file(ARQUIVO_PROJETOS);
-    if (!file.is_open()) {
-        // sem arquivo ainda -> lista vazia
-        return lista;
-    }
-
+    ifstream file(ARQUIVO);
     string linha;
+
     while (getline(file, linha)) {
-        if (linha.empty()) continue;
-
         Projeto p;
-        string campo;
         stringstream ss(linha);
+        string campo;
 
-        // ID
-        if (!getline(ss, campo, ';')) continue;
-        try {
-            p.id = stoi(campo);
-        }
-        catch (...) {
-            continue;
-        }
+        // Campos básicos
+        getline(ss, campo, ';');
+        p.id = stoi(campo);
 
         getline(ss, p.nome, ';');
         getline(ss, p.descricao, ';');
         getline(ss, p.responsavel, ';');
         getline(ss, p.categoria, ';');
         getline(ss, p.area, ';');
-        getline(ss, p.tipoFicha, ';');
+        getline(ss, p.tipoAvaliacao, ';');  // ✔ AGORA CARREGA CERTO
 
-        // se não tiver categoria/área/tipoFicha em linhas antigas, ficam vazios
+        // Avaliações
+        for (int i = 0; i < 3; i++) {
+            getline(ss, p.avaliacao[i].avaliadorCpf, ';');
+
+            getline(ss, campo, ';');
+            if (campo.empty()) campo = "0";
+            p.avaliacao[i].nota = stod(campo);
+        }
+
+        // Nota final
+        getline(ss, campo, ';');
+        if (campo.empty()) campo = "-1";
+        p.notaFinal = stod(campo);
+
         lista.push_back(p);
     }
 
     return lista;
 }
 
+// ===============================================
+// SALVAR PROJETOS
+// ===============================================
 void salvarProjetos(const vector<Projeto>& lista) {
-    ofstream file(ARQUIVO_PROJETOS, ios::trunc);
-    if (!file.is_open()) {
-        cout << "[Erro] Não foi possível abrir '" << ARQUIVO_PROJETOS << "' para escrita.\n";
-        return;
-    }
+    ofstream file(ARQUIVO, ios::trunc);
 
-    for (const auto& p : lista) {
-        file << p.id << ';'
-            << p.nome << ';'
-            << p.descricao << ';'
-            << p.responsavel << ';'
-            << p.categoria << ';'
-            << p.area << ';'
-            << p.tipoFicha << '\n';
+    for (auto& p : lista) {
+        file << p.id << ";"
+            << p.nome << ";"
+            << p.descricao << ";"
+            << p.responsavel << ";"
+            << p.categoria << ";"
+            << p.area << ";"
+            << p.tipoAvaliacao << ";";
+
+        for (int i = 0; i < 3; i++) {
+            file << p.avaliacao[i].avaliadorCpf << ";"
+                << p.avaliacao[i].nota << ";";
+        }
+
+        file << p.notaFinal << "\n";
     }
 }
 
-// ==== CRUD ====
-
+// ===============================================
+// CRIAR PROJETO
+// ===============================================
 void criarProjeto() {
     Projeto p;
     p.id = gerarNovoID();
+    SistemaFichas s;
+    carregarFichas(s);
+    int index = -1;
 
-    cout << "\n=== Cadastro de Projeto ===\n";
-    cout << "Nome: ";
+    // Nome
+    cout << "Nome (digite 0 para cancelar): ";
     getline(cin, p.nome);
-    cout << "Descrição: ";
+    if (p.nome == "0") return;
+
+    // Descricao
+    cout << "Descricao (digite 0 para cancelar): ";
     getline(cin, p.descricao);
-    cout << "Responsável: ";
+    if (p.descricao == "0") return;
+
+    // Responsavel
+    cout << "Responsavel (digite 0 para cancelar): ";
     getline(cin, p.responsavel);
+    if (p.responsavel == "0") return;
 
-    cout << "\nDefina a categoria e área do projeto:\n";
-    if (!menuCategoriaEArea(p.categoria, p.area)) {
-        cout << "Categoria/Área não selecionadas. Cancelando cadastro.\n";
-        return;
-    }
 
-    cout << "Tipo de ficha associada (ex: TCC, Projeto Integrador): ";
-    getline(cin, p.tipoFicha);
+    // Area
+    cout << "Area: ";
+    getline(cin, p.area);
 
-    ofstream file(ARQUIVO_PROJETOS, ios::app);
-    if (!file.is_open()) {
-        cout << "[Erro] Não foi possível abrir '" << ARQUIVO_PROJETOS << "' para escrita (append).\n";
-        return;
-    }
+    // Tipo de Avaliação
+    do {
+        cout << "Tipo de Avaliacao (digite 0 para cancelar): ";
+        getline(cin, p.tipoAvaliacao);
 
-    file << p.id << ';'
-        << p.nome << ';'
-        << p.descricao << ';'
-        << p.responsavel << ';'
-        << p.categoria << ';'
-        << p.area << ';'
-        << p.tipoFicha << '\n';
+        if (p.tipoAvaliacao == "0") return;
 
-    cout << "[OK] Projeto criado com sucesso!\n";
+        Ficha* encontrada = buscarFichaPorTipo(s, p.tipoAvaliacao);
+        if (encontrada != nullptr) {
+            cout << "\nFicha encontrada: " << encontrada->tipoFicha << "\n";
+            break;
+        }
+
+        cout << "Tipo invalido. Tentar novamente? (1 sim / 0 nao): ";
+        string opc;
+        getline(cin, opc);
+
+        if (opc == "0") return;
+
+    } while (true);
+
+    cout << "tipo de avaliacao definido: " << p.tipoAvaliacao << "\n";
+
+    // Salvar
+    ofstream file(ARQUIVO, ios::app);
+    file << p.id << ";" << p.nome << ";" << p.descricao << ";" << p.responsavel
+        << ";" << p.categoria << ";" << p.area << ";" << p.tipoAvaliacao << ";"
+        << ";;" << ";;" << ";;" // espaços para os 3 avaliadores
+        << "-1" << "\n";
 }
 
+// ===============================================
+// LISTAR PROJETOS
+// ===============================================
 void listarProjetos() {
     vector<Projeto> lista = carregarProjetos();
 
-    cout << "\nLista de Projetos:\n";
-    if (lista.empty()) {
-        cout << "(nenhum projeto cadastrado)\n";
-        return;
-    }
+    cout << "\n📋 Lista de Projetos:\n";
 
-    for (const auto& p : lista) {
+    for (auto& p : lista) {
         cout << "----------------------------\n";
         cout << "ID: " << p.id << "\n";
         cout << "Nome: " << p.nome << "\n";
-        cout << "Descrição: " << p.descricao << "\n";
-        cout << "Responsável: " << p.responsavel << "\n";
+        cout << "Descricao: " << p.descricao << "\n";
+        cout << "Responsavel: " << p.responsavel << "\n";
         cout << "Categoria: " << p.categoria << "\n";
-        cout << "Área: " << p.area << "\n";
-        cout << "Ficha associada: " << p.tipoFicha << "\n";
+        cout << "Area: " << p.area << "\n";
+        cout << "Tipo de Avaliacao: " << p.tipoAvaliacao << "\n";
+
+        for (int i = 0; i < 3; i++) {
+            cout << "Avaliador " << i + 1 << ": ";
+            if (p.avaliacao[i].avaliadorCpf.empty()) cout << "—";
+            else cout << p.avaliacao[i].avaliadorCpf;
+
+            cout << "  Nota: ";
+            if (p.avaliacao[i].avaliadorCpf.empty()) cout << "—";
+            else cout << p.avaliacao[i].nota;
+
+            cout << "\n";
+        }
+
+        cout << "Nota Final: ";
+        if (p.notaFinal == -1) cout << "—";
+        else cout << p.notaFinal;
+
+        cout << "\n";
     }
 }
 
+// ===============================================
+// BUSCAR PROJETO PELO NOME
+// ===============================================
+Projeto buscarProjeto(const string& nome) {
+    vector<Projeto> lista = carregarProjetos();
+
+    for (auto& p : lista)
+        if (p.nome == nome)
+            return p;
+
+    return Projeto{};
+}
+
+// ===============================================
+// CONTAR AVALIAÇÕES JÁ FEITAS
+// ===============================================
+int contarAvaliacoes(const Projeto& p) {
+    int qtd = 0;
+    for (int i = 0; i < 3; i++)
+        if (!p.avaliacao[i].avaliadorCpf.empty())
+            qtd++;
+    return qtd;
+}
+
+bool projetoFinalizado(const Projeto& p) {
+    return contarAvaliacoes(p) >= 3;
+}
+string atualizarAvaliacaoRealizada(int idProjeto, const string& cpf, double nota) {
+    vector<Projeto> lista = carregarProjetos();  // carrega tudo do arquivo
+
+    for (auto& p : lista) {
+        if (p.id == idProjeto) {
+
+            int qtd = contarAvaliacoes(p);
+
+            if (qtd == 3)
+                return "Avaliacao do Projeto Finalizada, por favor escolha outro.";
+
+            // Atualiza a avaliacao no projeto encontrado
+            p.avaliacao[qtd].avaliadorCpf = cpf;
+            p.avaliacao[qtd].nota = nota;
+
+            // Se completar as 3 avaliações → calcular média final
+            if (qtd + 1 == 3) {
+                double soma = 0;
+                for (int i = 0; i < 3; i++)
+                    soma += p.avaliacao[i].nota;
+
+                p.notaFinal = soma / 3.0;
+            }
+
+            // 🔥 Salva tudo novamente no arquivo
+            salvarProjetos(lista);
+
+            return "Avaliacao registrada e salva com sucesso!";
+        }
+    }
+
+    return "Projeto nao encontrado.";
+}
+
+// ===============================================
+// REGISTRAR AVALIAÇÃO
+// ===============================================
+string registrarAvaliacaoProjeto(int idProjeto, const string& cpf, double nota) {
+    return atualizarAvaliacaoRealizada(idProjeto, cpf, nota);
+}
+
+
+// ===============================================
+// PROJETO EXISTE?
+// ===============================================
+bool projetoExiste(const string& nome) {
+    vector<Projeto> lista = carregarProjetos();
+
+    for (auto& p : lista)
+        if (p.nome == nome)
+            return true;
+
+    return false;
+}
+
+// ===============================================
+// ATUALIZAR PROJETO
+// ===============================================
 void atualizarProjeto() {
     vector<Projeto> lista = carregarProjetos();
-    if (lista.empty()) {
-        cout << "\nNenhum projeto cadastrado.\n";
-        return;
-    }
-
     int id;
-    cout << "Digite o ID do projeto que deseja atualizar: ";
-    if (!(cin >> id)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida.\n";
-        return;
-    }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "ID: ";
+    cin >> id;
+    cin.ignore();
 
-    bool encontrado = false;
     for (auto& p : lista) {
         if (p.id == id) {
-            encontrado = true;
-            string tmp;
+            cout << "Novo nome: ";
+            getline(cin, p.nome);
 
-            cout << "Novo nome (vazio = manter): ";
-            getline(cin, tmp);
-            if (!tmp.empty()) p.nome = tmp;
+            cout << "Nova descricao: ";
+            getline(cin, p.descricao);
 
-            cout << "Nova descrição (vazio = manter): ";
-            getline(cin, tmp);
-            if (!tmp.empty()) p.descricao = tmp;
+            cout << "Novo responsavel: ";
+            getline(cin, p.responsavel);
 
-            cout << "Novo responsável (vazio = manter): ";
-            getline(cin, tmp);
-            if (!tmp.empty()) p.responsavel = tmp;
-
-            cout << "\nDeseja alterar categoria/área? (1 = sim, 0 = não): ";
-            int opCat = 0;
-            if (cin >> opCat) {
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                if (opCat == 1) {
-                    if (!menuCategoriaEArea(p.categoria, p.area)) {
-                        cout << "Categoria/Área mantidas.\n";
-                    }
-                }
-            }
-            else {
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-
-            cout << "Novo tipo de ficha (vazio = manter '" << p.tipoFicha << "'): ";
-            getline(cin, tmp);
-            if (!tmp.empty()) p.tipoFicha = tmp;
-
-            break;
+            salvarProjetos(lista);
+            cout << "Atualizado!\n";
+            return;
         }
     }
 
-    if (!encontrado) {
-        cout << "[ERRO] Projeto não encontrado.\n";
-        return;
-    }
-
-    salvarProjetos(lista);
-    cout << "[OK] Projeto atualizado!\n";
+    cout << "Nao encontrado.\n";
 }
 
+// ===============================================
+// DELETAR PROJETO
+// ===============================================
 void deletarProjeto() {
     vector<Projeto> lista = carregarProjetos();
-    if (lista.empty()) {
-        cout << "\nNenhum projeto cadastrado.\n";
-        return;
-    }
-
     int id;
-    cout << "Digite o ID do projeto que deseja deletar: ";
-    if (!(cin >> id)) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida.\n";
-        return;
-    }
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "ID: ";
+    cin >> id;
 
-    bool encontrado = false;
     vector<Projeto> novaLista;
 
-    for (const auto& p : lista) {
-        if (p.id == id) {
-            encontrado = true;
-            continue;
-        }
-        novaLista.push_back(p);
-    }
+    for (auto& p : lista)
+        if (p.id != id)
+            novaLista.push_back(p);
 
-    if (encontrado) {
-        salvarProjetos(novaLista);
-        cout << "[OK] Projeto removido com sucesso!\n";
-    }
-    else {
-        cout << "[ERRO] Projeto não encontrado.\n";
-    }
+    salvarProjetos(novaLista);
+    cout << "Removido!\n";
 }

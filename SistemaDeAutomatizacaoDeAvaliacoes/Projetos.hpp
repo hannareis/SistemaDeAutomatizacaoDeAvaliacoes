@@ -16,6 +16,10 @@ de projetos com avaliadores da mesma área e categoria.
 #include <vector>
 using namespace std;
 
+struct AvaliacaoRealizada {
+    string avaliadorCpf;
+	double nota;
+};
 
 struct Projeto {
     int id;
@@ -24,8 +28,9 @@ struct Projeto {
     string responsavel;
     string categoria;
     string area;
-    string tipoFicha;              // tipo de ficha técnica associada (ex: "TCC")
-    vector<string> avaliadoresCPF; // exatamente 3 avaliadores (opcional, não usamos ainda)
+    AvaliacaoRealizada avaliacao[3];
+    double notaFinal = -1;
+    string tipoAvaliacao;
 };
 
 
@@ -42,5 +47,11 @@ void deletarProjeto();
 
 vector<Projeto> carregarProjetos();
 void salvarProjetos(const vector<Projeto>& lista);
+bool projetoExiste(const string& nome);
+string registrarAvaliacaoProjeto(int idProjeto, const string& cpf, double nota);
+string atualizarAvaliacaoRealizada(int idProjeto, const string& cpf, double nota);
+Projeto buscarProjeto(const string& nome);
+bool projetoFinalizado(const Projeto& p);
+int contarAvaliacoes(const Projeto& p);
 
 #endif

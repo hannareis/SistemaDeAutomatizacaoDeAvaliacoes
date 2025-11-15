@@ -75,7 +75,7 @@ const std::string ARQUIVO_FICHAS = "fichas.csv";
 void inicializarSistema(SistemaFichas& s);
 
 // Verifica se já existe uma ficha com o mesmo tipoFicha (para evitar duplicatas)
-bool tipoExiste(const SistemaFichas& s, const std::string& tipoFicha);
+
 
 // Cria uma nova ficha técnica, com avaliações e quesitos definidos pelo usuário
 void criarFicha(SistemaFichas& s);
