@@ -3,7 +3,7 @@
 #include <sstream>
 #include <vector>
 #include <ctime>   // para pegar a data atual
-#include "../SistemaDeAutomatizacaoDeAvaliacoes/Notas.hpp"
+#include "Notas.hpp"
 #include "ID.hpp"
 #include "Ficha.hpp"
 using namespace std;
@@ -65,6 +65,8 @@ double mediaNotas(double notas[], double pesos[], int quantidade) {
 
 
 double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao) {
+	cout << "\n=== Registro de Notas para Ficha: " << tipoAvaliacao << " ===\n";
+
     Ficha* encontrada = buscarFichaPorTipo(s, tipoAvaliacao);
 
     if (encontrada != nullptr) {
@@ -136,42 +138,90 @@ void criarNotas() {
     cout << "Nome do avaliador: ";
     getline(cin, n.nome_avaliador);
 
+
+
+   
+
 	int index = -1;
     do {
-        cout << "Projeto avaliado: ";
+        cout << "Projeto avaliado (0 para cancelar): ";
         getline(cin, n.projeto);
 
-        if (projetoExiste(n.projeto)) {
-            cout << "Tipo de avaliacao (ex: Parcial, Final, etc.): ";
-            getline(cin, n.tipo_avaliacao);
-            SistemaFichas s;
-            carregarFichas(s);
-          n.nota =  registrarNotas(s, n.tipo_avaliacao);
-
-            ofstream file(ARQUIVO, ios::app);
-            file << n.data << ";"
-                << n.nota << ";"
-                << n.tipo_avaliacao << ";"
-                << n.nome_avaliador << ";"
-                << n.projeto << "\n";
-            file.close();
-
-            cout << "Nota registrada com sucesso em " << n.data << "!\n";
-            break;
+        if (n.projeto == "0") {
+            cout << "Operacao cancelada pelo usuario.\n";
+            return;
         }
-        else {
+
+        if (!projetoExiste(n.projeto)) {
             cout << "Projeto nao encontrado.\n";
-            cout << "Deseja tentar novamente? (1 - Sim / 0 - Nao): ";
-            cin >> index;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // limpar buffer
 
-            if (index == 0) {
-                cout << "Operacao cancelada pelo usuario.\n";
-                break;
+            while (true) {
+                cout << "Deseja tentar novamente? (1 - Sim / 0 - Nao): ";
+                string escolha;
+                getline(cin, escolha);
+
+                if (escolha == "0") {
+                    cout << "Operacao cancelada pelo usuario.\n";
+                    return;
+                }
+                else if (escolha == "1") {
+                    break; // tenta novamente
+                }
+                else {
+                    cout << "Entrada invalida. Digite apenas 1 ou 0.\n";
+                }
             }
+
+            continue;
         }
 
-    } while (!projetoExiste(n.projeto) && index != 0);   
+        // -------------------- PROJETO ENCONTRADO --------------------
+        Projeto p = buscarProjeto(n.projeto);
+
+        // 🔥 VERIFICA ANTES DE QUALQUER PROCESSO DE FICHA
+        if (projetoFinalizado(p)) {
+            cout << "❌ Avaliacao do Projeto Finalizada (já existem 3 avaliações).\n";
+            continue; // permite tentar outro projeto
+        }
+
+        // Mostra a ficha que será usada
+        cout << "Ficha de avaliacao: " << p.tipoAvaliacao << "\n";
+
+        // Carrega o conjunto de fichas do sistema
+        SistemaFichas s;
+        carregarFichas(s);
+		cout << "Carregadas " << s.qtdFichas << " fichas do sistema.\n";
+
+        n.tipo_avaliacao = p.tipoAvaliacao;
+
+		cout << "tipo de avaliacao: " << n.tipo_avaliacao << "\n";
+        // 📌 Somente aqui chamamos a ficha — DEPOIS da verificação!
+        n.nota = registrarNotas(s, p.tipoAvaliacao);
+
+        int qtd = contarAvaliacoes(p);
+        string mensagem = registrarAvaliacaoProjeto(p.id, n.nome_avaliador, n.nota);
+        cout << mensagem << "\n";
+
+        // Se após registrar a nota chegou a 3 → não salva nota no TXT
+        if (mensagem.find("Finalizada") != string::npos) {
+            continue;
+        }
+
+        // Grava a nota no arquivo
+        ofstream file(ARQUIVO, ios::app);
+        file << n.data << ";"
+            << n.nota << ";"
+            << n.tipo_avaliacao << ";"
+            << n.nome_avaliador << ";"
+            << n.projeto << "\n";
+        file.close();
+
+        cout << "Nota registrada com sucesso em " << n.data << "!\n";
+        break;
+
+    } while (true);
+
+
 }
 
 

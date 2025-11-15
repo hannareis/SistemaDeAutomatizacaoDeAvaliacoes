@@ -28,9 +28,11 @@ struct Projeto {
     string responsavel;
     string categoria;
     string area;
-    AvaliacaoRealizada  avaliacao[3];
-	double notaFinal;
+    AvaliacaoRealizada avaliacao[3];
+    double notaFinal = -1;
+    string tipoAvaliacao;
 };
+
 
 
 // Funções principais (CRUD)
@@ -46,6 +48,10 @@ void deletarProjeto();
 vector<Projeto> carregarProjetos();
 void salvarProjetos(const vector<Projeto>& lista);
 bool projetoExiste(const string& nome);
-
+string registrarAvaliacaoProjeto(int idProjeto, const string& cpf, double nota);
+string atualizarAvaliacaoRealizada(int idProjeto, const string& cpf, double nota);
+Projeto buscarProjeto(const string& nome);
+bool projetoFinalizado(const Projeto& p);
+int contarAvaliacoes(const Projeto& p);
 
 #endif
