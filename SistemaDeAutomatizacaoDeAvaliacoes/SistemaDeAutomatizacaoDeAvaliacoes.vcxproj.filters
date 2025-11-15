@@ -36,9 +36,6 @@
     <ClInclude Include="Menus.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="organizadores.hpp">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="MenuNotas.hpp">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -70,9 +67,6 @@
     </ClCompile>
     <ClCompile Include="MenuProjetos.cpp">
       <Filter>Arquivos de Recurso</Filter>
-    </ClCompile>
-    <ClCompile Include="organizadores.cpp">
-      <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="MenuNotas.cpp">
       <Filter>Arquivos de Recurso</Filter>

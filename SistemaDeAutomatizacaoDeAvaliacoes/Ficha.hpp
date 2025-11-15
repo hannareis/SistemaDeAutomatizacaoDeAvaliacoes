@@ -64,7 +64,8 @@ struct SistemaFichas {
 // Constante do arquivo usado para salvar os dados no disco
 // ------------------------------------------------------
 // Este nome é usado pelas funções de persistência para salvar/carregar as fichas.
-const std::string ARQUIVO_FICHAS = "fichas.txt";
+const std::string ARQUIVO_FICHAS = "fichas.csv";
+
 
 // ------------------------------------------------------
 // Declaração das funções principais do sistema

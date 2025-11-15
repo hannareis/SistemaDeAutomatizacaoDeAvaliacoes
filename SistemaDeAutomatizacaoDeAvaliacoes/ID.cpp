@@ -6,7 +6,8 @@
 
 using namespace std;
 
-const string ARQUIVO = "projetos.txt";
+const string ARQUIVO = "projetos.csv";
+
 //GERSON FEZ A FUNÇAO DE GERAR ID AUTOMATICO
 int encontrarMaiorID(ifstream& file, int maiorID = 0) {
     string linha;

@@ -39,8 +39,8 @@ void atualizarAvaliador();
 /// Deleta um avaliador (confirma em console).
 void deletarAvaliador();
 
-/// Fluxo de login (CPF + senha).
-void loginAvaliador();
+/// Fluxo de login (CPF + senha). Retorna true se autenticou.
+[[nodiscard]] bool loginAvaliador();
 
 // ===================================
 // Auxiliares / Validação 

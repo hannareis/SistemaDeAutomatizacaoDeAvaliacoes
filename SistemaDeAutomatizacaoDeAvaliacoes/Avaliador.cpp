@@ -23,7 +23,8 @@ using std::stringstream;
 using std::vector;
 
 // Caminho do arquivo (mantido)
-const string ARQUIVO_AVALIADOR = "avaliadores.txt";
+const string ARQUIVO_AVALIADOR = "avaliadores.csv";
+
 
 // ============================
 // Helpers "privados" do arquivo
@@ -461,7 +462,6 @@ void deletarAvaliador() {
         cout << "\nOperação cancelada.\n";
     }
 }
-
 // ============================
 // Autenticação / Login
 // ============================
@@ -478,7 +478,7 @@ bool autenticarAvaliador(const string& cpf, const string& senha) {
     throw ExcecaoAutenticacao("CPF não encontrado!");
 }
 
-void loginAvaliador() {
+bool loginAvaliador() {
     cout << "\n=== Login de Avaliador ===\n";
     cout << "CPF: ";
     string cpf = getlineSafe();
@@ -486,10 +486,14 @@ void loginAvaliador() {
     string senha = getlineSafe();
 
     try {
-        if (autenticarAvaliador(cpf, senha))
+        if (autenticarAvaliador(cpf, senha)) {
             cout << "\n✔ Login realizado com sucesso!\n";
+            return true;
+        }
     }
     catch (const exception& e) {
         cout << "[Erro de Login] " << e.what() << "\n";
     }
+    return false;
 }
+
