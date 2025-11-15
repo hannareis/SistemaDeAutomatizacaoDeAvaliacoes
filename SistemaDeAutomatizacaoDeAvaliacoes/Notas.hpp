@@ -2,6 +2,7 @@
 #define NOTAS_HPP
 #include <ctime>
 #include <string>
+#include "Ficha.hpp"
 using namespace std;
 
 struct Notas {
@@ -14,5 +15,10 @@ struct Notas {
 
 void criarNotas();
 void listarNotas();
+double registrarNotas(SistemaFichas& s, const string& tipoAvaliacao);
+struct NotaQuesito {
+    double nota;
+	double peso; 
+};
 
 #endif
